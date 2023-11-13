@@ -1,0 +1,12 @@
+<%= layout("./layouts/boilerplate") %>
+<section class="stories">
+    <h2 class="tilte">All stories</h2>
+    <% for(let story of stories) {%>
+    <div class="story-card">
+        <div><a href="/stories/<%= story.id %>"> <%= story.title %></a></div>
+        <div><%= story.body %></div>
+        <div><%= story.createAt %></div>
+    </div>
+
+    <% } %>
+</section>

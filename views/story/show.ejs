@@ -1,0 +1,28 @@
+<%= layout("./layouts/boilerplate") %>
+<section class="show">
+    <div>title : <%= story.title %></div>
+    <div>body : <%= story.body %></div>
+    <div>createAt: <%= story.createAt %></div>
+    <a href="/stories/<%= story.id %>/edit">edit Story </a>
+
+    <section class="createComment">
+        <form action="/stories/<%= story.id %>/comments" method="post">
+            <input type="text" name="comment[body]" />
+            <button>comment</button>
+        </form>
+    </section>
+    <section class="displayComments">
+        <% for (let comment of story.comments) {%>
+        <div>
+            <%= comment.body %>
+            <form
+                action="/stories/<%= story.id %>/comments/<%= comment.id %>?_method=delete"
+                method="post"
+            >
+                <button>delete comment</button>
+            </form>
+        </div>
+
+        <% } %>
+    </section>
+</section>
