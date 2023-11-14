@@ -2,17 +2,20 @@ const express = require("express");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const connectDB = require("./db/connect");
 const passport = require("passport");
+
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const ExpressError = require("./utils/ExpressError");
+
 const flash = require("connect-flash");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const userRouter = require("./routes/user");
 const storiesRouter = require("./routes/story");
 const commentRouter = require("./routes/comment");
 
+const connectDB = require("./db/connect");
 const { GoogleUser } = require("./models/googleUser");
 const app = express();
 let dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/storyBooks";
@@ -28,7 +31,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+const store = new MongoStore({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+});
+
 const sessionConfig = {
+    store,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -89,10 +98,11 @@ passport.use(
 passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
-passport.deserializeUser(function (id, done) {
-    GoogleUser.findById(id, function (err, user) {
-        done(err, user);
-    });
+passport.deserializeUser(async function (id, done) {
+    let user = await GoogleUser.findById(id);
+    if (user) {
+        done(null, user);
+    }
 });
 
 // home page
@@ -110,8 +120,8 @@ app.use("*", (req, res, next) => {
 });
 app.use((err, req, res, next) => {
     const { status = 500 } = err;
-
     console.log(err);
+
     res.status(status).render("error", { error: err, title: "Error " });
 });
 

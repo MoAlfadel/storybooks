@@ -19,6 +19,6 @@ module.exports.logout = (req, res) => {
             return res.redirect("/");
         }
         req.flash("success", "goodBye!");
-        res.redirect("/");
+        res.redirect("/stories");
     });
 };

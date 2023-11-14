@@ -23,8 +23,8 @@ module.exports.showStory = catchAsync(async (req, res) => {
 module.exports.createStory = catchAsync(async (req, res) => {
     const story = new Story({
         ...req.body.story,
-        // author : req.user._id ,
-        // authorAccountType : req.user.accountType
+        author: req.user._id,
+        authorAccountType: req.user.accountType,
     });
 
     await story.save();

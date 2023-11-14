@@ -1,7 +1,14 @@
 const Story = require("../models/story");
 const Comment = require("../models/comment");
+const catchAsync = require("../utils/CatchAsync");
+const ExpressError = require("../utils/ExpressError");
 
-module.exports.isLogin = (req, res) => {
+const {
+    storyValidationSchema,
+    commentValidationSchema,
+} = require("../schemas");
+
+module.exports.isLogin = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.flash("error", "You must be sign in first ");
         return res.redirect("/auth/login");
@@ -10,10 +17,10 @@ module.exports.isLogin = (req, res) => {
     next();
 };
 
-module.exports.isStoryAuthor = (req, res) => {
-    const [id] = req.params;
-    const story = Story.findById(id);
-    if (!req.user.id.equals(story.author)) {
+module.exports.isStoryAuthor = catchAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const story = await Story.findById(id);
+    if (!story.author.equals(req.user.id)) {
         req.flash("You have mot permission to do that ! ");
         return res.redirect(`/stories/${id}`);
     } else if (!story) {
@@ -21,9 +28,9 @@ module.exports.isStoryAuthor = (req, res) => {
         return res.redirect("/stories");
     }
     next();
-};
+});
 module.exports.validateStory = (req, res, next) => {
-    const { error } = campgroundSchema.validate(req.body.story);
+    const { error } = storyValidationSchema.validate(req.body.story);
     if (error) {
         let msg = error.details.map((elt) => elt.message).join(",");
         throw new ExpressError(msg, 400);
@@ -32,21 +39,18 @@ module.exports.validateStory = (req, res, next) => {
     }
 };
 
-module.exports.isCommentAuthor = (req, res) => {
-    const [id, commentId] = req.params;
-    const comment = Comment.findById(commentId);
-    if (!req.user.id.equals(comment.author)) {
-        req.flash("You have mot permission to do that ! ");
+module.exports.isCommentAuthor = catchAsync(async (req, res, next) => {
+    const { id, commentId } = req.params;
+    const comment = await Comment.findById(commentId);
+    if (!comment.author.equals(req.user._id)) {
+        req.flash("error", "You have mot permission to do that ! ");
         return res.redirect(`/stories/${id}`);
-    } else if (!story) {
-        res.flash("can not find story ");
-        return res.redirect("/stories");
     }
     next();
-};
+});
 
 module.exports.validateComment = (req, res, next) => {
-    const { error } = campgroundSchema.validate(req.body.comment);
+    const { error } = commentValidationSchema.validate(req.body.comment);
     if (error) {
         let msg = error.details.map((elt) => elt.message).join(",");
         throw new ExpressError(msg, 400);

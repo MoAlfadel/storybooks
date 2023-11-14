@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const { dashboard, renderLoginPage } = require("../controllers/user");
+const users = require("../controllers/user");
 
-router.route("/login").get(renderLoginPage);
-router.route("/dashboard").get(dashboard);
+router.route("/login").get(users.renderLoginPage);
+router.route("/dashboard").get(users.dashboard);
 router
     .route("/google")
     .get(passport.authenticate("google", { scope: ["profile", "email"] }));
@@ -15,7 +15,8 @@ router.get(
         failureFlash: true,
     }),
     function (req, res) {
-        res.send(`${req.user.fullName} \n ${req.user.createdDate}`);
+        res.redirect("/stories");
     }
 );
+router.route("/logout").get(users.logout);
 module.exports = router;

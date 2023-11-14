@@ -11,8 +11,8 @@ module.exports.createComment = catchAsync(async (req, res) => {
     console.log(req.body.comment);
     let comment = new Comment({
         ...req.body.comment,
-        // authorAccountType : req.user.accountType
-        // author : req.user._id ,
+        authorAccountType: req.user.accountType,
+        author: req.user._id,
     });
     story.comments.unshift(comment.id);
     await story.save();
@@ -39,6 +39,8 @@ module.exports.likeComment = catchAsync(async (req, res) => {
         req.flash("error", "can not find that comment");
         return res.redirect(`/stories/${id}`);
     }
+    // if you like it before  {problem }
+
     comment.likes++;
     req.user.likedComments.unshift(commentId);
     await req.user.save();
@@ -53,6 +55,8 @@ module.exports.dislikeComment = catchAsync(async (req, res) => {
         req.flash("error", "not found comments");
         return res.redirect(`/stories/${id}`);
     }
+    // if you  don't like it {problem}
+
     comment.likes--;
     const commentIndex = req.user.likedComments.indexOf(comment);
     req.user.likedComments.splice(commentIndex);

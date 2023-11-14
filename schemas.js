@@ -1,12 +1,11 @@
 const joi = require("joi");
-const storyValidationSchema = joi.object({
+
+module.exports.storyValidationSchema = joi.object({
     title: joi.string().required(),
     body: joi.string().required(),
     status: joi.string().required(),
 });
 
-const commentValidationSchema = joi.object({
+module.exports.commentValidationSchema = joi.object({
     body: joi.string().required(),
 });
-
-module.exports = storyValidationSchema;

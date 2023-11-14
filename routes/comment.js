@@ -10,10 +10,12 @@ const {
 } = require("../middleware/middleware");
 
 // stories/:id/comments
-router.route("/").post(comments.createComment);
-router.route("/:commentId").delete(comments.deleteComment);
+router.route("/").post(isLogin, validateComment, comments.createComment);
+router
+    .route("/:commentId")
+    .delete(isLogin, isCommentAuthor, comments.deleteComment);
 
-router.post("/:commentId/like", comments.likeComment);
+router.post("/:commentId/like", isLogin, comments.likeComment);
 
 router.delete("/:commentId/dislike", comments.dislikeComment);
 
