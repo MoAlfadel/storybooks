@@ -101,6 +101,9 @@ header {
                 left: -200vh;
                 background-color: var(--main-clr);
                 color: var(--text-clr);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
                 &.active {
                     left: 0;
                 }
