@@ -1,0 +1,7 @@
+  .grid-lay{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  gap: 20px;
+  padding: 10px;
+  margin: 0 5px 20px 5px;
+  }
