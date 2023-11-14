@@ -10,7 +10,6 @@
 body {
     position: relative;
     font-family: "Roboto Condensed", sans-serif;
-    background-color: #f1f5f9;
 }
 .container {
     padding: 0 15px;
@@ -110,6 +109,9 @@ header {
                 }
                 li {
                     padding: 20px 20px;
+                    .icon {
+                        margin-right: 5px;
+                    }
                     a {
                         text-decoration: none;
                         color: inherit;
