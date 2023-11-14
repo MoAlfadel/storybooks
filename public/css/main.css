@@ -114,6 +114,9 @@ header nav .links-container .links {
   left: -200vh;
   background-color: var(--main-clr);
   color: var(--text-clr);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 header nav .links-container .links.active {
   left: 0;
