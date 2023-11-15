@@ -16,7 +16,7 @@ const storiesRouter = require("./routes/story");
 const commentRouter = require("./routes/comment");
 
 const connectDB = require("./db/connect");
-const { GoogleUser } = require("./models/googleUser");
+const User = require("./models/user");
 const app = express();
 let dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/storyBooks";
 if (process.env.NODE_ENV !== "production") {
@@ -69,8 +69,8 @@ passport.use(
         async (accessToken, refreshToken, profile, done) => {
             try {
                 //find the user in our database
-                const foundUser = await GoogleUser.findOne({
-                    profileId: profile.id,
+                const foundUser = await User.findOne({
+                    "google.profileId ": profile.id,
                 });
                 if (foundUser) {
                     //If user present in our database.
@@ -78,14 +78,14 @@ passport.use(
                 } else {
                     // if user is not preset in our database save user data to database.
                     //get the user data from google
-                    newUser = {
+                    const newUser = {
                         firstName: profile.name.givenName,
                         lastName: profile.name.familyName,
                         email: profile.emails[0].value,
                         profileId: profile.id,
                         image: profile.photos[0].value,
                     };
-                    const user = new GoogleUser(newUser);
+                    const user = new user({ google: newUser });
                     await user.save();
                     done(null, user);
                 }
@@ -99,7 +99,7 @@ passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 passport.deserializeUser(async function (id, done) {
-    let user = await GoogleUser.findById(id);
+    let user = await User.findById(id);
     if (user) {
         done(null, user);
     }

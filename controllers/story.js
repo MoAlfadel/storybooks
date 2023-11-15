@@ -24,7 +24,6 @@ module.exports.createStory = catchAsync(async (req, res) => {
     const story = new Story({
         ...req.body.story,
         author: req.user._id,
-        authorAccountType: req.user.accountType,
     });
 
     await story.save();
@@ -74,7 +73,7 @@ module.exports.dislikeStory = catchAsync(async (req, res) => {
     }
     story.likes--;
     const storyIndex = req.user.likedStories.indexOf(id);
-    req.user.likedStories.splice(storyindex, 1);
+    req.user.likedStories.splice(storyIndex, 1);
     await story.save();
     await req.user.save();
     res.redirect(`/stories/${id}`);

@@ -33,14 +33,9 @@ const StroySchema = new Schema({
             ref: "Comment",
         },
     ],
-    authorAccountType: {
-        // get it From req.user.accountType
-        type: String,
-        // required : true ,
-    },
     author: {
         type: Schema.Types.ObjectId,
-        refPath: "authorAccountType",
+        ref: "User",
         // required: true,
     },
 });
