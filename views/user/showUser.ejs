@@ -1,0 +1,54 @@
+<%= layout("/layouts/boilerplate") %>
+<section class="show-user">
+    <div class="info-container">
+        <div class="user-info">
+            <div class="img-name">
+                <img src="<%= user.image %>" alt="" class="user-image" />
+                <div class="name"><%= user.fullName %></div>
+            </div>
+            <div class="flow-box">
+                <a href="/users/<%=user.id %>/flow" class="btn btn-states"
+                    >flow</a
+                >
+                <a href="/users/<%= user.id %>/unflow" class="btn btn-states"
+                    >unFlow</a
+                >
+            </div>
+        </div>
+        <div class="more-info">
+            <div class="email">
+                <span class="title">Email </span>
+                <%= user.email %>
+            </div>
+            <div class="joined">
+                <span class="title"> Joined </span>
+                <%= user.createdDate %>
+            </div>
+            <div class="flow-container">
+                <div class="flow">
+                    <span class="title">flow </span>
+                    <%= user.flowedAuthors.length %>
+                    <i class="fa fa-solid icon fa-user"></i>
+                </div>
+                <div class="flowed-by">
+                    <span class="title flowed-by"> Flowed by </span>
+                    000
+                    <i class="fa fa-solid icon fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="stories-container">
+        <div class="story">
+            <div class="story-title title">Story</div>
+            <div class="createdAt title">Created</div>
+        </div>
+        <% for (let story of user.stories ) {%>
+        <div class="story">
+            <div class="story-title"><%= story.title %></div>
+            <div class="createdAt"><%= story.createdDate %></div>
+        </div>
+
+        <% } %>
+    </div>
+</section>

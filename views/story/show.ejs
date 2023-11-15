@@ -1,10 +1,31 @@
 <%= layout("./layouts/boilerplate") %>
 <section class="show">
-    <div>title : <%= story.title %></div>
-    <div>body : <%= story.body %></div>
-    <div>createAt: <%= story.createAt %></div>
+    <section class="authorInfo">
+        <h1>
+            author :
+            <a href="/users/<%=story.author.id %>">
+                <%= story.author.fullName %></a
+            >
+        </h1>
+    </section>
+    <div>
+        <h2>title</h2>
+        : <%= story.title %>
+    </div>
+    <div>
+        <h2>body</h2>
+        : <%= story.body %>
+    </div>
+    <div>
+        <h2>createAt</h2>
+        : <%= story.createdDate %>
+    </div>
+    <div>
+        <h2>likes number</h2>
+        : <%= story.likes %>
+    </div>
     <a href="/stories/<%= story.id %>/edit">edit Story </a>
-
+    <hr />
     <section class="createComment">
         <form action="/stories/<%= story.id %>/comments" method="post">
             <input type="text" name="comment[body]" />

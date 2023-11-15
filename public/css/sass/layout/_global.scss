@@ -32,6 +32,14 @@ body {
         width: 1320px;
     }
 }
+a {
+    text-decoration: none;
+    color: var(--main-clr);
+    transition: color 0.4s ease;
+    &:hover {
+        color: var(--secund-text-clr);
+    }
+}
 main.container {
     padding: 15px 15px 70px;
     margin-top: 70px;
@@ -131,8 +139,8 @@ header {
 
 .btn {
     margin: 10px 0;
-    background-color: var(--text-clr);
-    color: var(--secund-clr);
+    background-color: var(--secund-clr);
+    color: var(--main-clr);
     width: fit-content;
     padding: 8px 10px;
     border-radius: 5px;
@@ -144,6 +152,7 @@ header {
     transition: 0.4s ease-in-out;
     font-weight: initial;
     font-size: 1rem;
+    text-decoration: none;
     // ----------------------------------
     &.danger {
         background-color: var(--negative-clr);
@@ -164,11 +173,12 @@ header {
 .btn-states {
     transition: 0.4s ease-in-out;
     &:hover {
-        box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 -1px 0 rgba(170, 168, 168, 0.04),
+            0 2px 4px rgba(0, 0, 0, 0.25);
     }
 
     &:active {
-        background-color: var(--third-clr);
+        background-color: #f4f4f4;
         color: var(--main-clr);
     }
 
@@ -217,12 +227,15 @@ header {
 }
 footer {
     height: 90px;
-    background-color: var(--text-clr);
+    background-color: var(--secund-clr);
     padding: 20px 0;
-    color: var(--secund-clr);
+    color: var(--main-clr);
     line-height: 1.6;
     div {
         text-align: center;
+    }
+    span {
+        color: var(--main-clr);
     }
 }
 

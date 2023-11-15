@@ -1,12 +1,26 @@
 <%= layout("./layouts/boilerplate") %>
-<section class="stories">
-    <h2 class="tilte">All stories</h2>
-    <% for(let story of stories) {%>
-    <div class="story-card">
-        <div><a href="/stories/<%= story.id %>"> <%= story.title %></a></div>
-        <div><%= story.body %></div>
-        <div><%= story.createAt %></div>
+<section class="home">
+    <!-- coding here  -->
+    <div class="boxes grid-lay">
+        <% for (let story of stories) {%>
+        <div class="box">
+            <div class="head">
+                <img src="<%= story.author.image %>" alt="" />
+                <div class="info">
+                    <span
+                        ><a href="users/<%=story.author.id %>"
+                            ><%= story.author.fullName %></a
+                        ></span
+                    >
+                    <span> <%= story.createdDate%></span>
+                </div>
+            </div>
+            <div class="story">
+                <div class="story-title"><%= story.title %></div>
+                <p><%= story.storyPart %></p>
+                <a href="/stories/<%=story.id %>" class="button">view more </a>
+            </div>
+        </div>
+        <% } %>
     </div>
-
-    <% } %>
 </section>

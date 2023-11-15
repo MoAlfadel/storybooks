@@ -1,0 +1,114 @@
+@use "../helpers/varibles" as *;
+@use "../helpers/mixins" as *;
+
+.show-user {
+    .title {
+        font-weight: 500;
+        background-color: var(--text-clr);
+        color: var(--secund-text-clr);
+        padding: 5px;
+        display: inline-block;
+        width: 70px;
+        text-align: center;
+    }
+    .info-container {
+        .user-info,
+        .more-info {
+            margin: 10px 0;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 10px;
+
+            .img-name {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: var(--main-clr);
+                img {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                }
+            }
+        }
+        .more-info {
+            box-shadow: $shadow;
+            border-radius: 6px;
+            background-color: #fff;
+            padding: 10px;
+            font-size: 15px;
+            color: var(--secund-text-clr);
+            line-height: 1.6;
+            .title {
+                @include arrow("right", var(--text-clr), 8px);
+                margin-right: 10px;
+                &.flowed-by {
+                    width: fit-content;
+                }
+            }
+            .email,
+            .joined,
+            .flow-container {
+                margin-bottom: 10px;
+                padding: 5px;
+                background-color: #f8f7f7;
+            }
+            .flow-container {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin-bottom: 0;
+                align-items: center;
+                .icon {
+                    font-size: 15px;
+                    display: inline-block;
+                    margin-top: -10px;
+                }
+            }
+        }
+    }
+
+    .stories-container {
+        margin-top: 15px;
+        box-shadow: $shadow;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 6px;
+
+        .story {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f7f7;
+            border-radius: 6px;
+            color: var(--secund-text-clr);
+            &:first-child {
+                margin-top: 0;
+            }
+            .title {
+                @include arrow("bottom", var(--text-clr), 8px);
+            }
+            .story-title {
+                a {
+                    color: inherit;
+                    &:hover {
+                        color: var(--main-clr);
+                    }
+                }
+            }
+            .createdAt {
+                font-size: small;
+                font-weight: 500;
+            }
+        }
+    }
+}

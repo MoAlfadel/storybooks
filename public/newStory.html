@@ -1,23 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New story</title>
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/all.min.css" />
-    <link rel="stylesheet" href="css/main.css" />
-  </head>
-  <body>
-    <header>
-      <nav class="">
-        <div class="links-container">
-          <div class="menu" id="menuBtn">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <ul class="links" id="links">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -81,7 +63,6 @@
                                         class="fa icon fa-sign-out"
                                         aria-hidden="true"
                                     ></i>
-
                                     logout
                                 </a>
                             </li>
@@ -93,32 +74,34 @@
                 </div>
             </nav>
         </header>
-
         <main id="main" class="container">
             <section class="new">
+                <h2 class="main-tiatle">add new story</h2>
                 <!-- coding here  -->
+                <form action="">
+                    <input type="text" placeholder="title" />
+                    <textarea
+                        name="editor"
+                        class="editor"
+                        id="editor"
+                    ></textarea>
+                    <label for="status">Status :</label>
+                    <div class="select-container">
+                        <select name="status" id="status">
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
+                        </select>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <input type="button" value="Add" />
+                </form>
             </section>
         </main>
         <footer>
             <div>
-              <li>
-                <a href="/">
-                  <i class="fa-solid icon fa-home"></i>
-                  home</a
-                >
-              </li>
-              <li>
-                <a href="/auth/dashboard"> dashboard</a>
-              </li>
-              <li>
-                <a href="/stories"> stories</a>
-              </li>
-              <li>
-                <a href="/stories/new">
-                  <i class="fa fa-plus-square icon" aria-hidden="true"></i>
-                  new story
-                </a>
-              </li>
+                Made With <span>&#10084;</span> By Mo Alfadel & Alsadig Almahadi
             </div>
             <div>
               <li>
@@ -161,8 +144,7 @@
       <div>&COPY; StoryBooks 2023</div>
     </footer>
     <script src="js/all.min.js"></script>
-    <script src="js/main.js">
-    </script>
+    <script src="js/main.js"></script>
     <script src="ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace("editor");
