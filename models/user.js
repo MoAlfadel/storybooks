@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const moment = require("moment");
-
-const userSchema = new Schema({
+const userInfoSchema = {
     firstName: {
         type: String,
         trim: true,
@@ -13,26 +12,17 @@ const userSchema = new Schema({
         trim: true,
         required: true,
     },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
     email: {
         type: String,
         trim: true,
         required: true,
     },
-    profileId: {
-        type: String,
-        required: true,
-    },
     image: {
         type: String,
-        required: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-    },
-    accountType: {
-        type: String,
-        default: "GoogleUser",
     },
     likedStories: [
         {
@@ -60,14 +50,9 @@ const userSchema = new Schema({
     ],
     flowedAuthors: [
         {
-            authorAccountType: {
-                type: String,
-                required: true,
-                // enum : ["GoogleUser" , ]
-            },
             author: {
                 type: Schema.Types.ObjectId,
-                refPath: "authorAccountType",
+                ref: "User",
                 required: true,
             },
             flowedAt: {
@@ -76,6 +61,15 @@ const userSchema = new Schema({
             },
         },
     ],
+};
+const userSchema = new Schema({
+    google: {
+        profileId: {
+            type: String,
+            required: true,
+        },
+        ...userInfoSchema,
+    },
 });
 userSchema.virtual("fullName").get(function () {
     return `${this.firstName} ${this.lastName}`;
@@ -83,4 +77,4 @@ userSchema.virtual("fullName").get(function () {
 userSchema.virtual("createdDate").get(function () {
     return moment(this.createdAt).format("MMMM Do YYYY, h:mm:ss a");
 });
-module.exports.GoogleUser = mongoose.model("GoogleUser", userSchema);
+module.exports = mongoose.model("User", userSchema);

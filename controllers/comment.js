@@ -11,7 +11,6 @@ module.exports.createComment = catchAsync(async (req, res) => {
     console.log(req.body.comment);
     let comment = new Comment({
         ...req.body.comment,
-        authorAccountType: req.user.accountType,
         author: req.user._id,
     });
     story.comments.unshift(comment.id);
