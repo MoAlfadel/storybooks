@@ -1,6 +1,13 @@
 @use "./sass/helpers/varibles";
+@use "./sass/components/heading";
 @use "./sass/layout/global";
 @use "./sass/pages/homepage";
+<<<<<<< HEAD
 @use "./sass/pages/sign";
 @use "./sass/layout/grid";
 @use "./sass/pages/newpage";
+=======
+@use "./sass/layout/grid";
+@use "./sass/pages/newpage";
+@use "./sass/pages/sign";
+>>>>>>> dbbf709 (restyling the newstory page)
