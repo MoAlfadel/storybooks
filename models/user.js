@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const moment = require("moment");
-const userInfoSchema = {
+const userInfo = {
     firstName: {
         type: String,
         trim: true,
@@ -62,13 +62,14 @@ const userInfoSchema = {
         },
     ],
 };
+
 const userSchema = new Schema({
+    ...userInfo,
     google: {
         profileId: {
             type: String,
             required: true,
         },
-        ...userInfoSchema,
     },
 });
 userSchema.virtual("fullName").get(function () {

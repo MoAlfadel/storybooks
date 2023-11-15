@@ -78,14 +78,16 @@ passport.use(
                 } else {
                     // if user is not preset in our database save user data to database.
                     //get the user data from google
-                    const newUser = {
+                    const newUserInfo = {
                         firstName: profile.name.givenName,
                         lastName: profile.name.familyName,
                         email: profile.emails[0].value,
-                        profileId: profile.id,
                         image: profile.photos[0].value,
                     };
-                    const user = new user({ google: newUser });
+                    const user = new User({
+                        google: { profileId: profile.id },
+                        ...newUserInfo,
+                    });
                     await user.save();
                     done(null, user);
                 }
@@ -121,7 +123,6 @@ app.use("*", (req, res, next) => {
 app.use((err, req, res, next) => {
     const { status = 500 } = err;
     console.log(err);
-
     res.status(status).render("error", { error: err, title: "Error " });
 });
 
