@@ -1,6 +1,7 @@
 :root {
   --main-clr: #050438;
   --text-clr: #eee;
+  --secund-text-clr: #707070;
 }
 
 /* ? start global */
@@ -13,6 +14,7 @@
 body {
   position: relative;
   font-family: "Roboto Condensed", sans-serif;
+  background-color: #f4f4f4;
 }
 
 .container {
@@ -296,6 +298,56 @@ footer div {
   border-radius: 6px;
   margin: 14px;
   cursor: pointer;
+}
+
+.sign-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  text-align: center;
+}
+.sign-container > * {
+  margin-bottom: 10px;
+}
+.sign-container h2 {
+  color: var(--main-clr);
+}
+.sign-container p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--secund-text-clr);
+}
+.sign-container .google-signin-btn {
+  display: inline-block;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 10px auto;
+  background: var(--main-clr);
+  color: #fff;
+  border: 1px solid var(--main-clr);
+  border-radius: 4px;
+  white-space: nowrap;
+  padding: 10px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: background 0.4s ease, color 0.4s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.sign-container .google-signin-btn:hover, .sign-container .google-signin-btn:active {
+  background: #eee;
+  color: var(--main-clr);
+}
+.sign-container .google-signin-btn .google-logo {
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
 }
 
 .grid-lay {
