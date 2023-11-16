@@ -19,6 +19,7 @@ form {
         padding: 5px 10px;
         border-radius: 6px;
         text-align: center;
+        cursor: pointer;
     }
     label {
         text-transform: uppercase;
@@ -39,6 +40,7 @@ form {
             color: #fff;
             background-color: var(--main-clr);
             font-size: 20px;
+            cursor: pointer;
         }
         .icon-container {
             width: 50px;
