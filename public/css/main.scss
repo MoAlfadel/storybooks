@@ -1,7 +1,9 @@
 @use "./sass/helpers/varibles";
+@use "./sass/components/heading";
 @use "./sass/layout/global";
 @use "./sass/pages/homepage";
-@use "./sass/pages/sign";
 @use "./sass/layout/grid";
 @use "./sass/pages/newpage";
 @use "./sass/pages/showUser";
+@use "./sass/pages/showpage";
+@use "./sass/pages/sign";
