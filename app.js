@@ -11,7 +11,8 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
-const userRouter = require("./routes/user");
+const usersRouter = require("./routes/user");
+const authRouter = require("./routes/auth");
 const storiesRouter = require("./routes/story");
 const commentRouter = require("./routes/comment");
 
@@ -113,7 +114,8 @@ app.get("/", (req, res) => {
 });
 
 // Routers
-app.use("/auth", userRouter);
+app.use("/auth", authRouter);
+app.use("/users", usersRouter);
 app.use("/stories", storiesRouter);
 app.use("/stories/:id/comments", commentRouter);
 

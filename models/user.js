@@ -76,6 +76,7 @@ userSchema.virtual("fullName").get(function () {
     return `${this.firstName} ${this.lastName}`;
 });
 userSchema.virtual("createdDate").get(function () {
-    return moment(this.createdAt).format("MMMM Do YYYY, h:mm:ss a");
+    return moment(this.createdAt, "YYYYMMDD").fromNow();
 });
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+module.exports = User;

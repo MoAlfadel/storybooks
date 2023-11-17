@@ -6,13 +6,15 @@ module.exports.renderNewStoryForm = (req, res) => {
 };
 
 module.exports.getPublicStories = catchAsync(async (req, res) => {
-    const stories = await Story.find({ status: "public" });
+    const stories = await Story.find({ status: "public" }).populate("author");
     res.render("story/stories", { stories, title: "All Stories" });
 });
 
 module.exports.showStory = catchAsync(async (req, res) => {
     const { id } = req.params;
-    const story = await Story.findById(id).populate("comments");
+    const story = await Story.findById(id)
+        .populate("comments")
+        .populate("author");
     if (!story) {
         req.flash("error", "Can not find that story");
         return res.redirect("/stories");

@@ -1,4 +1,5 @@
 const Story = require("../models/story");
+const User = require("../models/user");
 const catchAsync = require("../utils/CatchAsync");
 
 module.exports.dashboard = catchAsync(async (req, res) => {
@@ -8,17 +9,19 @@ module.exports.dashboard = catchAsync(async (req, res) => {
     });
     res.render("user/dashboard", { title: "Dashboard" });
 });
-module.exports.renderLoginPage = (req, res) => {
-    res.render("user/login", { title: "login" });
-};
 
-module.exports.logout = (req, res) => {
-    req.logout(function (err) {
-        if (err) {
-            req.flash("error", err.message);
-            return res.redirect("/");
-        }
-        req.flash("success", "goodBye!");
-        res.redirect("/stories");
-    });
-};
+module.exports.getUser = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id).populate("");
+    if (!user) {
+        req.flash("error", "can not find user ");
+        return res.redirect("/home");
+    }
+
+    const userStories = await Story.find({ status: "public", author: user.id });
+    if (userStories) {
+        user.stories = userStories;
+    }
+
+    res.render("user/showUser", { user, title: user.fullName });
+});
