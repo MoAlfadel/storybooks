@@ -1,5 +1,9 @@
 $line-height: 1.6;
 $shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+$mobile:" (max-width: 767px)";
+$small:"(min-width:768px) and (max-width:991px)";
+$medium:"(min-width: 992px) and (max-width: 1199px)";
+$large:"(min-width: 1200px)";
 
 :root {
     --main-clr: #050438;

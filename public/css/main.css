@@ -446,28 +446,86 @@ form .select-container .icon-container .fa-caret-down {
   color: #fff;
 }
 
-.comment-section {
-  width: 650px;
+.new {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.new .box {
+  height: 100vh;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+}
+.new .box .head {
+  display: flex;
+  align-items: center;
+}
+.new .box .head img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.new .box .head .info span {
+  display: block;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+.new .box .head .info span:nth-child(2) {
+  font-size: 12px;
+  color: #888;
+  margin-top: 7px;
+}
+.new .box .story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+}
+.new .box .story .story-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #545454;
+  margin: 7px 0;
+}
+.new .box .story p {
+  font-size: 14px;
+  color: #707070;
+  text-align: center;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  line-height: 1.5;
+}
+.new .comment-section {
   height: auto;
   margin: 0 auto;
 }
-.comment-section img {
+@media (max-width: 767px) {
+  .new .comment-section {
+    max-width: 767px;
+  }
+}
+.new .comment-section img {
   width: 40px;
   margin-right: 10px;
 }
-.comment-section .flex {
+.new .comment-section .flex {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
-.comment-section .flex .reply {
+.new .comment-section .flex .reply {
   display: flex;
   gap: 10px;
   align-items: center;
   justify-content: center;
   padding: 10px;
 }
-.comment-section .flex .reply .lic-icon {
+.new .comment-section .flex .reply .lic-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -476,48 +534,49 @@ form .select-container .icon-container .fa-caret-down {
   color: #777;
   margin-left: 5px;
 }
-.comment-section .flex .reply .lic-icon .fa-thumbs-up {
+.new .comment-section .flex .reply .lic-icon .fa-thumbs-up {
   margin-left: 5px;
 }
-.comment-section .comment-list, .comment-section .comment-box {
+.new .comment-section .comment-list,
+.new .comment-section .comment-box {
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1333333333);
 }
-.comment-section .comment-list {
+.new .comment-section .comment-list {
   width: 100%;
   margin-bottom: 12px;
 }
-.comment-section .comment-list .user {
+.new .comment-section .comment-list .user {
   display: flex;
   padding: 8px;
   overflow: hidden;
 }
-.comment-section .comment-list .user .name {
+.new .comment-section .comment-list .user .name {
   text-transform: uppercase;
   font-weight: 600;
 }
-.comment-section .comment-list .user .date {
+.new .comment-section .comment-list .user .date {
   font-size: 12px;
 }
-.comment-section .post-comment .comment {
+.new .comment-section .post-comment .comment {
   padding: 0 0 15px 58px;
 }
-.comment-section .comment-box {
+.new .comment-section .comment-box {
   padding: 10px;
   overflow: hidden;
 }
-.comment-section .comment-box .user {
+.new .comment-section .comment-box .user {
   display: flex;
   width: -moz-min-content;
   width: min-content;
 }
-.comment-section .comment-box .user img {
+.new .comment-section .comment-box .user img {
   width: 24px;
   height: 24px;
   margin-right: 10px;
 }
-.comment-section .comment-box textarea {
+.new .comment-section .comment-box textarea {
   background-color: #eee;
   width: -webkit-fill-availablle;
   height: 152px;
@@ -525,11 +584,13 @@ form .select-container .icon-container .fa-caret-down {
   border: none;
   border-radius: 4px;
   box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.2);
+  resize: none;
 }
-.comment-section .comment-box textarea:focus {
+.new .comment-section .comment-box textarea:focus {
   outline: none;
 }
-.comment-section .comment-box .comment-submit {
+.new .comment-section .comment-box .comment-submit {
+  text-align: right;
   width: -moz-fit-content;
   width: fit-content;
   float: right;
