@@ -8,7 +8,6 @@ module.exports.createComment = catchAsync(async (req, res) => {
     if (!story) {
         req.flash("error", "Can not find that Story ");
     }
-    console.log(req.body.comment);
     let comment = new Comment({
         ...req.body.comment,
         author: req.user._id,
@@ -63,3 +62,8 @@ module.exports.dislikeComment = catchAsync(async (req, res) => {
     await comment.save();
     res.redirect(`/stories/${id}`);
 });
+
+// do not display flow
+// <% if(currentUser.id !== user.id) {%>
+
+// <% } %>

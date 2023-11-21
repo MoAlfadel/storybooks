@@ -1,2 +1,89 @@
 <%= layout("/layouts/boilerplate") %>
-<section class="dashboard">dashboard</section>
+<section class="show-user">
+    <section class="info-container">
+        <div class="user-info dashboard">
+            <div class="img-name">
+                <img src="<%= user.image %>" alt="" class="user-image" />
+                <div class="name"><%= user.fullName %></div>
+            </div>
+        </div>
+        <div class="more-info">
+            <div class="email">
+                <span class="title">Email </span>
+                <%= user.email %>
+            </div>
+            <div class="joined">
+                <span class="title"> Joined </span>
+                <%= user.createdDate %>
+            </div>
+            <div class="follow-container">
+                <div class="follow">
+                    <span class="title">follow </span>
+                    <%= user.followedAuthors.length %>
+                    <i class="fa fa-solid icon fa-user"></i>
+                </div>
+                <div class="Followed-by">
+                    <span class="title followed-by"> Followed by </span>
+                    <%= followersArr.length %>
+                    <i class="fa fa-solid icon fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <ul class="main-filter">
+        <li data-set="storiesContainer" class="activeMainBtn">
+            <i class="fa fa-book-open icon"></i> Stories
+        </li>
+        <li data-set="followContainer" class="">
+            <i class="fa fa-user icon"></i> Followers
+        </li>
+    </ul>
+    <!-- but stories container here  -->
+    <section class="followers-container main-container" id="followContainer">
+        <ul class="filter box">
+            <li data-set="followers" class="activeBtn">
+                <span class="span">
+                    <i class="fa fa-user"></i>
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </span>
+                followers
+            </li>
+            <li data-set="followedAuthors" class="">
+                <div class="span">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <i class="fa fa-user"></i>
+                </div>
+                Followed
+            </li>
+        </ul>
+        <div class="follow-box activeBox" id="followers">
+            <div class="box">
+                <div class="box-title title">author</div>
+                <div class="time title">followed You</div>
+            </div>
+            <% for (let author of followersArr){ %>
+            <div class="box">
+                <div class="box-title">
+                    <a href="/users/<%=author.id %>"><%= author.fullName %></a>
+                </div>
+                <div class="time"><%= author.flowedAt %></div>
+            </div>
+            <% } %>
+        </div>
+        <div class="follow-box" id="followedAuthors">
+            <div class="box">
+                <div class="box-title title">author</div>
+                <div class="time title">followed</div>
+            </div>
+            <% for (let author of followedAuthorsArr){ %>
+            <div class="box">
+                <div class="box-title">
+                    <a href="<%= author.id %>"> <%= author.fullName %></a>
+                </div>
+                <div class="time"><%= author.flowedAt %></div>
+            </div>
+            <% } %>
+        </div>
+    </section>
+    <script src="/js/dashborad.js"></script>
+</section>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="css/normalize.css" />
+        <link rel="stylesheet" href="css/all.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="">
+                <div class="links-container">
+                    <div class="menu" id="menuBtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul class="links" id="links">
+                        <div>
+                            <li>
+                                <a href="/">
+                                    <i class="fa-solid icon fa-home"></i>
+                                    home</a
+                                >
+                            </li>
+                            <li>
+                                <a href="/users/dashboard">
+                                    <i class="fa fa-user icon"></i>
+                                    dashboard</a
+                                >
+                            </li>
+                            <li>
+                                <a href="/stories">
+                                    <i class="fa fa-book-open icon"></i>
+                                    stories</a
+                                >
+                            </li>
+                            <li>
+                                <a href="/stories/new">
+                                    <i
+                                        class="fa fa-plus-square icon"
+                                        aria-hidden="true"
+                                    ></i>
+                                    new story
+                                </a>
+                            </li>
+                        </div>
+                        <div>
+                            <li>
+                                <a href="/auth/login">
+                                    <i
+                                        class="fa icon fa-sign-in"
+                                        aria-hidden="true"
+                                    ></i>
+                                    sign in
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/auth/logout">
+                                    <i
+                                        class="fa icon fa-sign-out"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    logout
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <h1>StoryBooks</h1>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main" class="container">
+            <section class="show-user">
+                <section class="info-container">
+                    <div class="user-info dashboard">
+                        <div class="img-name">
+                            <img
+                                src="images/avatar.png"
+                                alt=""
+                                class="user-image"
+                            />
+                            <div class="name">Mohammed Alfadel</div>
+                        </div>
+                    </div>
+                    <div class="more-info">
+                        <div class="email">
+                            <span class="title">Email </span>
+                            Mo.alfadel01@gmail.com
+                        </div>
+                        <div class="joined">
+                            <span class="title"> Joined </span>
+                            1/5/2023
+                        </div>
+                        <div class="follow-container">
+                            <div class="follow">
+                                <span class="title"> follow </span>
+                                2
+                                <i class="fa fa-solid icon fa-user"></i>
+                            </div>
+                            <div class="followed-by">
+                                <span class="title followed-by">
+                                    followed by
+                                </span>
+                                10
+                                <i class="fa fa-solid icon fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <ul class="main-filter">
+                    <li data-set="storiesContainer" class="activeMainBtn">
+                        <i class="fa fa-book-open icon"></i> Stories
+                    </li>
+                    <li data-set="followContainer" class="">
+                        <i class="fa fa-user icon"></i> Followers
+                    </li>
+                </ul>
+                <section
+                    class="stories-container main-container activeMainContainer"
+                    id="storiesContainer"
+                >
+                    <ul class="filter box">
+                        <li data-set="yourStories" class="activeBtn">
+                            <i class="fa fa-solid"></i>
+                            Your stories
+                        </li>
+                        <li data-set="savedStories">
+                            <i class="fa fa-save icon"></i> saved Stories
+                        </li>
+                        <li data-set="likedStories">
+                            <i class="fa fa-heart"></i>
+                            Liked Stories
+                        </li>
+                    </ul>
+                    <div class="stories-box activeBox" id="yourStories">
+                        <div class="box">
+                            <div class="box-title title">Story</div>
+                            <div class="time title">Created</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title">
+                                <a href=""> my baah</a>
+                            </div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title"><a href="">baah</a></div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title">
+                                <a href="">blah blah blah </a>
+                            </div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                    </div>
+                    <div class="stories-box" id="savedStories">
+                        <div class="box">
+                            <div class="box-title title">Story</div>
+                            <div class="time title">saved</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title">
+                                <a href=""> Saved baah </a>
+                            </div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title"><a href="">baah</a></div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title">
+                                <a href="">blah blah blah saved </a>
+                            </div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                    </div>
+                    <div class="stories-box" id="likedStories">
+                        <div class="box">
+                            <div class="box-title title">Story</div>
+                            <div class="time title">Created</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title">
+                                <a href="">blah blah blah liked </a>
+                            </div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                    </div>
+                </section>
+                <section
+                    class="followers-container main-container"
+                    id="followContainer"
+                >
+                    <ul class="filter box">
+                        <li data-set="followers" class="activeBtn">
+                            <span class="span">
+                                <i class="fa fa-user"></i>
+                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            </span>
+                            followers
+                        </li>
+                        <li data-set="followedAuthors" class="">
+                            <div class="span">
+                                <i
+                                    class="fa fa-sign-out"
+                                    aria-hidden="true"
+                                ></i>
+                                <i class="fa fa-user"></i>
+                            </div>
+                            Followed
+                        </li>
+                    </ul>
+                    <div class="follow-box" id="followedAuthors">
+                        <div class="box">
+                            <div class="box-title title">author</div>
+                            <div class="time title">followed</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title">
+                                <a href="">I follow him</a>
+                            </div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                    </div>
+                    <div class="follow-box activeBox" id="followers">
+                        <div class="box">
+                            <div class="box-title title">author</div>
+                            <div class="time title">followed You</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title"><a href="">baah</a></div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                        <div class="box">
+                            <div class="box-title">
+                                <a href=""> follow me Mo </a>
+                            </div>
+                            <div class="time">2 hour aga</div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+        <footer>
+            <div>
+                Made With <span>&#10084;</span> By Mo Alfadel & Alsadig Almahadi
+            </div>
+            <div>&COPY; StoryBooks 2023</div>
+        </footer>
+        <script src="js/dashborad.js"></script>
+        <script src="js/all.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

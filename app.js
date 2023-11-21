@@ -51,12 +51,6 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-app.use((req, res, next) => {
-    res.locals.error = req.flash("error");
-    res.locals.success = req.flash("success");
-    next();
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(
@@ -107,6 +101,12 @@ passport.deserializeUser(async function (id, done) {
         done(null, user);
     }
 });
+app.use((req, res, next) => {
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    res.locals.currentUser = req.user;
+    next();
+});
 
 // home page
 app.get("/", (req, res) => {
@@ -120,7 +120,7 @@ app.use("/stories", storiesRouter);
 app.use("/stories/:id/comments", commentRouter);
 
 app.use("*", (req, res, next) => {
-    next(new ExpressError("Page Not Found", 404));
+    return next(new ExpressError("Page Not Found", 404));
 });
 app.use((err, req, res, next) => {
     const { status = 500 } = err;

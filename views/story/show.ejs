@@ -12,9 +12,13 @@
         <h2>title</h2>
         : <%= story.title %>
     </div>
-    <div>
+    <div class>
         <h2>body</h2>
-        : <%= story.body %>
+        <div id="body"></div>
+        <script>
+            let body = document.getElementById("body");
+            body.innerHTML = " <%-story.body %>";
+        </script>
     </div>
     <div>
         <h2>createAt</h2>
@@ -22,9 +26,18 @@
     </div>
     <div>
         <h2>likes number</h2>
+        <a href="/stories/<%=story.id %>/like">
+            <button>like</button>
+        </a>
+        <a href="/stories/<%=story.id %>/dislike">
+            <button>dislike</button>
+        </a>
         : <%= story.likes %>
     </div>
     <a href="/stories/<%= story.id %>/edit">edit Story </a>
+    <form action="/stories/<%- story.id %>?_method=delete" method="post">
+        <button>delete the Story</button>
+    </form>
     <hr />
     <section class="createComment">
         <form action="/stories/<%= story.id %>/comments" method="post">

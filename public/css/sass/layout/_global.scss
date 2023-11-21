@@ -57,7 +57,7 @@ header {
         align-items: center;
         background-color: var(--main-clr);
         padding: 0 20px;
-        color: var(--text-clr);
+        color: var(--secund-clr);
         position: fixed;
         z-index: 343434;
         top: 0;
@@ -79,7 +79,7 @@ header {
                     display: inline-block;
                     width: 23px;
                     height: 3px;
-                    background-color: var(--text-clr);
+                    background-color: var(--secund-clr);
                     transition: ease-in-out 0.4s;
                     border-radius: 1.5px;
                 }
@@ -109,10 +109,12 @@ header {
                 transition: left 0.4s ease-in-out;
                 left: -200vh;
                 background-color: var(--main-clr);
-                color: var(--text-clr);
+                color: var(--secund-clr);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
+
+                margin-bottom: 50px;
                 &.active {
                     left: 0;
                 }
@@ -133,6 +135,10 @@ header {
             flex-grow: 2;
             text-align: center;
             font-weight: 400;
+            margin-left: -37px;
+            h1 {
+                font-size: 1.7rem;
+            }
         }
     }
 }

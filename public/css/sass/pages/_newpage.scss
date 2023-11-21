@@ -1,65 +1,67 @@
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 30px;
-    input[type="text"] {
-        background-color: #eee;
-        border: none;
-        padding: 10px;
-        border-radius: 6px;
-        &:focus {
-            outline: none;
-        }
-    }
-    input[type="button"] {
-        background-color: var(--main-clr);
-        color: #fff;
-        padding: 10px;
-        border-radius: 6px;
-        text-align: center;
-        cursor: pointer;
-        border: none;
-    }
-    label {
-        text-transform: uppercase;
-        margin-top: 10px;
-    }
-    .select-container {
+.new {
+    form {
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        position: relative;
-        min-width: 250px;
-
-        select {
+        gap: 10px;
+        margin-top: 30px;
+        input[type="text"] {
+            background-color: #eee;
             border: none;
-            appearance: none;
-            padding: 10px 30px 10px 15px;
+            padding: 10px;
             border-radius: 6px;
-            width: 100%;
-            color: #fff;
-            background-color: var(--secund-clr);
-            color: var(--main-clr);
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        .icon-container {
-            width: 50px;
-            height: 100%;
-            position: absolute;
-            right: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #05043800;
-            .fa-caret-down {
-                font-size: 30px;
-                color: var(--main-clr);
+            &:focus {
+                outline: none;
             }
         }
-    }
-    .editor {
-        font-size: 1rem;
+        input[type="submit"] {
+            background-color: var(--main-clr);
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+        label {
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .select-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            min-width: 250px;
+
+            select {
+                border: none;
+                appearance: none;
+                padding: 10px 30px 10px 15px;
+                border-radius: 6px;
+                width: 100%;
+                color: #fff;
+                background-color: var(--secund-clr);
+                color: var(--main-clr);
+                font-size: 1rem;
+                cursor: pointer;
+            }
+            .icon-container {
+                width: 50px;
+                height: 100%;
+                position: absolute;
+                right: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #05043800;
+                .fa-caret-down {
+                    font-size: 30px;
+                    color: var(--main-clr);
+                }
+            }
+        }
+        .editor {
+            font-size: 1rem;
+        }
     }
 }

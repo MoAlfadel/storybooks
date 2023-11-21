@@ -16,13 +16,17 @@ router
 
 router.route("/new").get(isLogin, stories.renderNewStoryForm);
 
-router.route("/:id").get(stories.showStory).put(isLogin, stories.updateStory);
+router
+    .route("/:id")
+    .get(stories.showStory)
+    .put(isLogin, stories.updateStory)
+    .delete(isLogin, isStoryAuthor, stories.deleteStory);
 
 router
     .route("/:id/edit")
     .get(isLogin, isStoryAuthor, stories.renderEditStoryForm);
 
 router.route("/:id/like").get(isLogin, stories.likeStory);
-router.route("/:id/dislike").get(isLogin, stories.likeStory);
+router.route("/:id/dislike").get(isLogin, stories.dislikeStory);
 
 module.exports = router;

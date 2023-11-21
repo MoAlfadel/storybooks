@@ -2,6 +2,9 @@
 @use "../helpers/mixins" as *;
 
 .show-user {
+    .icon {
+        margin-right: 6px;
+    }
     .title {
         font-weight: 500;
         background-color: var(--text-clr);
@@ -11,18 +14,86 @@
         width: 70px;
         text-align: center;
     }
-    .info-container {
-        .user-info,
-        .more-info {
-            margin: 10px 0;
+    .box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f8f7f7;
+        border-radius: 6px;
+        color: var(--secund-text-clr);
+        &.filter {
+            flex-direction: column;
+            align-items: start;
+            margin-bottom: 10px;
+            border-top-right-radius: 6px;
+            border-top-left-radius: 6px;
+            box-shadow: $shadow;
+            gap: 10px;
+            @media (min-width: 762px) {
+                flex-direction: row;
+                justify-content: space-evenly;
+            }
         }
-
+        &:first-child {
+            margin-top: 0;
+        }
+        .title {
+            @include arrow("bottom", var(--text-clr), 8px);
+        }
+        .box-title {
+            a {
+                color: var(--main-clr);
+                &:hover {
+                    color: inherit;
+                }
+            }
+        }
+        .time {
+            font-size: small;
+            font-weight: 500;
+        }
+    }
+    .box.filter li,
+    .main-filter li {
+        width: 125px;
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+        border: 1.5px solid var(--secund-clr);
+        font-size: 14px;
+        padding: 5px 6px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: var(--text-clr);
+        transition: 0.4s ease-in-out;
+        &.activeBtn,
+        &:hover {
+            background-color: var(--secund-clr);
+            color: var(--main-clr);
+            border-color: var(--main-clr);
+        }
+    }
+    .info-container {
+        margin-bottom: 25px;
+        box-shadow: $shadow;
         .user-info {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-evenly;
             align-items: center;
             gap: 10px;
-
+            padding: 15px 10px;
+            background-color: var(--third-clr);
+            border-top-right-radius: 6px;
+            border-top-left-radius: 6px;
+            &.dashboard {
+                display: block;
+                background-color: var(--secund-clr);
+                padding-left: 20px;
+            }
             .img-name {
                 display: flex;
                 align-items: center;
@@ -34,30 +105,32 @@
                     border-radius: 50%;
                 }
             }
+            .btn {
+                background-color: var(--text-clr);
+            }
         }
         .more-info {
-            box-shadow: $shadow;
-            border-radius: 6px;
             background-color: #fff;
             padding: 10px;
-            font-size: 15px;
             color: var(--secund-text-clr);
             line-height: 1.6;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
             .title {
                 @include arrow("right", var(--text-clr), 8px);
                 margin-right: 10px;
-                &.flowed-by {
+                &.followed-by {
                     width: fit-content;
                 }
             }
             .email,
             .joined,
-            .flow-container {
+            .follow-container {
                 margin-bottom: 10px;
                 padding: 5px;
                 background-color: #f8f7f7;
             }
-            .flow-container {
+            .follow-container {
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
@@ -72,42 +145,63 @@
             }
         }
     }
-
     .stories-container {
-        margin-top: 15px;
         box-shadow: $shadow;
         background-color: #fff;
         padding: 10px;
-        border-radius: 6px;
-
-        .story {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 7px;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f8f7f7;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+        display: none;
+        transition: display 0.4s ease-in-out;
+        &.activeMainContainer {
+            display: block;
+        }
+        &.profile {
             border-radius: 6px;
+        }
+        .stories-box {
+            display: none;
+            transition: display 0.4s ease-in-out;
+            &.activeBox {
+                display: block;
+                transition: display 0.4s ease-in-out;
+            }
+        }
+    }
+    .main-filter {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-evenly;
+        gap: 20px;
+        background-color: var(--secund-clr);
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        padding: 15px 20px;
+        box-shadow: $shadow;
+        li {
+            background-color: var(--text-clr);
             color: var(--secund-text-clr);
-            &:first-child {
-                margin-top: 0;
+            justify-content: space-evenly;
+            &.activeMainBtn,
+            &:hover {
+                background-color: var(--main-clr);
+                color: var(--text-clr);
             }
-            .title {
-                @include arrow("bottom", var(--text-clr), 8px);
-            }
-            .story-title {
-                a {
-                    color: inherit;
-                    &:hover {
-                        color: var(--main-clr);
-                    }
-                }
-            }
-            .createdAt {
-                font-size: small;
-                font-weight: 500;
+        }
+    }
+    .followers-container {
+        display: none;
+        background-color: #fff;
+        padding: 10px;
+        &.activeMainContainer {
+            display: block;
+        }
+        .follow-box {
+            display: none;
+            transition: display 0.4s ease-in-out;
+            &.activeBox {
+                display: block;
+                transition: display 0.4s ease-in-out;
             }
         }
     }

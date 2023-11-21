@@ -52,12 +52,25 @@ module.exports.updateStory = catchAsync(async (req, res) => {
     res.redirect(`/stories/${id}`);
 });
 
-module.exports.likeStory = catchAsync(async (req, res) => {
+module.exports.deleteStory = catchAsync(async (req, res) => {
     const { id } = req.params;
-    const story = Story.findById(id);
+    const story = await Story.findByIdAndDelete(id);
     if (!story) {
         req.flash("error", "Can not find that story");
         return res.redirect("/stories");
+    }
+    res.redirect("/stories");
+});
+
+module.exports.likeStory = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const story = await Story.findById(id);
+    if (!story) {
+        req.flash("error", "Can not find that story");
+        return res.redirect("/stories");
+    } else if (req.user.likedStories.includes(story.id)) {
+        req.flash("error", "You like this Story before ");
+        return res.redirect(`/stories/${id}`);
     }
     story.likes++;
     req.user.likedStories.push(story._id);
@@ -68,10 +81,13 @@ module.exports.likeStory = catchAsync(async (req, res) => {
 
 module.exports.dislikeStory = catchAsync(async (req, res) => {
     const { id } = req.params;
-    const story = Story.findById(id);
+    const story = await Story.findById(id);
     if (!story) {
         req.flash("error", "Can not find that story");
         return res.redirect("/stories");
+    } else if (!req.user.likedStories.includes(story.id)) {
+        req.flash("error", "You do not like this Story before ");
+        return res.redirect(`/stories/${id}`);
     }
     story.likes--;
     const storyIndex = req.user.likedStories.indexOf(id);

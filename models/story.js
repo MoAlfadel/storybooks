@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Comment = require("./comment");
+const User = require("./user");
 const moment = require("moment");
 
 const { Schema } = mongoose;
@@ -28,6 +30,7 @@ const StroySchema = new Schema({
     likes: {
         type: Number,
         default: 0,
+        min: 0,
     },
     comments: [
         {
@@ -49,6 +52,20 @@ StroySchema.virtual("storyPart").get(function () {
         return this.body.substring(0, 90) + "...";
     } else {
         return this.body;
+    }
+});
+
+StroySchema.post("findOneAndDelete", async (story) => {
+    if (story) {
+        // delete its comments
+        await Comment.deleteMany({ id: { $in: story.comments } });
+        // delete it from likedStories of users
+        await User.updateMany({ $pull: { likedStories: story.id } });
+        // delete its comment from user likedComments of users
+        await User.updateMany({
+            $pull: { likedComments: { $in: story.comments } },
+        });
+        // delete it from savedStories of users
     }
 });
 

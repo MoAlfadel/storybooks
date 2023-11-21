@@ -15,12 +15,6 @@
                         >
                     </li>
                     <li>
-                        <a href="/users/dashboard">
-                            <i class="fa fa-user icon"></i>
-                            dashboard</a
-                        >
-                    </li>
-                    <li>
                         <a href="/stories">
                             <i class="fa fa-book-open icon"></i>
                             stories</a
@@ -35,6 +29,20 @@
                             new story
                         </a>
                     </li>
+                    <% if(currentUser) {%>
+                    <li>
+                        <a href="/users/<%= currentUser.id %>">
+                            <i class="fa fa-user icon"></i>
+                            profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users/dashboard">
+                            <i class="fa fa-dashboard icon"></i>
+                            dashboard</a
+                        >
+                    </li>
+                    <% } %>
                 </div>
                 <div>
                     <li>

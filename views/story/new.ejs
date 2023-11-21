@@ -1,5 +1,5 @@
 <%= layout("/layouts/boilerplate") %>
-<section class="new">
+<!-- <section class="new">
     <form action="/stories" method="post">
         <div class="field">
             <label for="">title</label>
@@ -18,4 +18,29 @@
         </div>
         <button>send</button>
     </form>
+</section> -->
+<section class="new">
+    <h2 class="main-tiatle">add new story</h2>
+    <form action="/stories" method="post">
+        <input type="text" placeholder="title" name="story[title]" />
+        <textarea name="story[body]" id="editor"></textarea>
+        <label for="status">Status :</label>
+        <div class="select-container">
+            <select name="story[status]" id="status">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+            </select>
+            <div class="icon-container">
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </div>
+        <input type="submit" value="Add" />
+
+        <!-- <button>hie</button> -->
+    </form>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor");
+    </script>
 </section>
