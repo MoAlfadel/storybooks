@@ -7,7 +7,6 @@ let followFilters = document.querySelectorAll(
 let mainFilters = document.querySelectorAll(".main-filter li");
 let mainContainers = document.querySelectorAll(".main-container");
 
-console.log(mainFilters);
 mainFilters.forEach((btn) => {
     btn.addEventListener("click", function () {
         mainFilters.forEach((btn) => btn.classList.remove("activeMainBtn"));

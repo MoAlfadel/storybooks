@@ -1,33 +1,8 @@
 <%= layout("./layouts/boilerplate") %>
-<section class="home">
-    <h2 class="main-tiatle">Public Stories</h2>
-    <div class="boxes grid-lay">
-        <% for (let i = 0 ; i < stories.length ; i++) {%>
-        <div class="box">
-            <div class="head">
-                <img src="<%= stories[i].author.image %>" alt="" />
-                <div class="info">
-                    <span
-                        ><a href="users/<%=stories[i].author.id %>"
-                            ><%=stories[i].author.fullName %></a
-                        ></span
-                    >
-                    <span> <%= stories[i].createdDate%></span>
-                </div>
-            </div>
-            <div class="story">
-                <div class="story-title"><%= stories[i].title %></div>
-
-                <p id="body-<%= i %>"></p>
-                <a href="/stories/<%=stories[i].id %>" class="button"
-                    >view more
-                </a>
-                <script>
-                    var body = document.getElementById(`body-<%=i%>`);
-                    body.innerHTML = "<%-stories[i].storyPart %>";
-                </script>
-            </div>
-        </div>
-        <% } %>
-    </div>
-</section>
+<h2 class="main-tiatle"><%= mainTitle %></h2>
+<% if(stories.length) {%> <%- include("../partials/stories.ejs") %> <% } else {
+%>
+<p class="stories-not-found" style="text-align: center">
+    You have not <%= mainTitle %> yet ! <i class="fa fa-dfdkf"></i>
+</p>
+<% } %>

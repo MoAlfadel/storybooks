@@ -3,11 +3,12 @@
     padding: 10px 20px;
     width: fit-content;
     margin: 10px auto 30px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     z-index: 1;
     position: relative;
     transition: 3s;
     border-radius: 20px;
+    text-transform: capitalize;
     cursor: pointer;
     &:before {
         content: "";

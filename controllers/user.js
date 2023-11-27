@@ -9,22 +9,34 @@ const isFollowed = (follower, followedUser) => {
 };
 
 module.exports.dashboard = catchAsync(async (req, res) => {
-    // find the rqq.user stories => user : req.user.id
-    const followersArr = await req.user.getFollowedByAuthors();
-    let stories = await Story({
-        // user : req.user.id
-    });
+    const userStories = new Object();
 
+    const followersArr = await req.user.getFollowedByAuthors();
     const followedAuthorsArr = await req.user.getFollowedAuthors();
+
+    userStories.likedStories = await Story.find({
+        _id: { $in: req.user.likedStories },
+    }).select(["title", "createdAt"]);
+
+    userStories.savedStories = await req.user.getSavedStories();
+
+    userStories.publicStories = await Story.find({
+        author: req.user.id,
+        status: "public ",
+    });
+    userStories.privateStories = await Story.find({
+        author: req.user.id,
+        status: "private",
+    }).select(["title", "createdAt"]);
 
     res.render("user/dashboard", {
         user: req.user,
         followersArr,
         followedAuthorsArr,
+        userStories,
         title: "Dashboard",
     });
 });
-
 module.exports.getProfile = catchAsync(async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(id);
@@ -37,8 +49,6 @@ module.exports.getProfile = catchAsync(async (req, res) => {
         user.stories = userStories;
     }
     const followedBy = await user.getFollowedByAuthors();
-    // remove this
-    req.user = null;
     const isFollowedResult = req.user ? isFollowed(req.user, user) : false;
 
     res.render("user/showUser", {
@@ -62,7 +72,25 @@ module.exports.followUser = catchAsync(async (req, res) => {
         req.flash("error", "You already following the author ");
         return res.redirect(`/users/${id}`);
     }
-    req.user.followedAuthors.push({ author: user.id });
+    req.user.followedAuthors.push({ author: user.id, followedAt: Date.now() });
     await req.user.save();
+    res.redirect(`/users/${id}`);
+});
+module.exports.unFollowUser = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+        req.flash("error", "can not find user ");
+        return res.redirect("/home");
+    }
+    const isFollowedResult = isFollowed(req.user, user);
+
+    if (!isFollowedResult) {
+        req.flash("error", "You do not follow the author ");
+        return res.redirect(`/users/${id}`);
+    }
+    await req.user.updateOne({
+        $pull: { followedAuthors: { author: user.id } },
+    });
     res.redirect(`/users/${id}`);
 });

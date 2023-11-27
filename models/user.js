@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const moment = require("moment");
+const Story = require("./story");
 const userInfo = {
     firstName: {
         type: String,
@@ -14,7 +15,7 @@ const userInfo = {
     },
     createdAt: {
         type: Date,
-        default: Date.now(),
+        required: true,
     },
     email: {
         type: String,
@@ -36,10 +37,11 @@ const userInfo = {
             story: {
                 type: Schema.Types.ObjectId,
                 ref: "Story",
+                required: true,
             },
             savedAt: {
                 type: Date,
-                default: Date.now(),
+                required: true,
             },
         },
     ],
@@ -57,9 +59,9 @@ const userInfo = {
                 required: true,
                 unique: true,
             },
-            flowedAt: {
+            followedAt: {
                 type: Date,
-                default: Date.now(),
+                required: true,
             },
         },
     ],
@@ -93,13 +95,29 @@ userSchema.methods.getFollowedByAuthors = async function () {
                 return {
                     id: obj.author.id,
                     fullName: obj.author.fullName,
-                    flowedAt: moment(obj.flowedAt, "YYYYMMDD").fromNow(),
+                    followedAt: moment(obj.followedAt, "YYYYMMDD").fromNow(),
                     // image: obj.author.image,
                 };
             }
         }
     });
     return followedBy;
+};
+userSchema.methods.getFollowedAuthors = async function () {
+    const theUser = await mongoose
+        .model("User", userSchema)
+        .findById(this.id)
+        .populate("followedAuthors.author");
+    const userFollowThem = theUser.followedAuthors;
+    const followedAuthors = userFollowThem.map((authorObj) => {
+        return {
+            id: authorObj.author.id,
+            fullName: authorObj.author.fullName,
+            followedAt: moment(authorObj.followedAt, "YYYYMMDD").fromNow(),
+            // image: authorObj.author.image,
+        };
+    });
+    return followedAuthors;
 };
 userSchema.methods.getFollowedAuthors = async function () {
     const theUser = await require("./user")
@@ -110,11 +128,32 @@ userSchema.methods.getFollowedAuthors = async function () {
         return {
             id: authorObj.author.id,
             fullName: authorObj.author.fullName,
-            flowedAt: moment(authorObj.flowedAt, "YYYYMMDD").fromNow(),
+            followedAt: moment(authorObj.followedAt, "YYYYMMDD").fromNow(),
             // image: authorObj.author.image,
         };
     });
     return followedAuthors;
 };
+userSchema.methods.getSavedStories = async function () {
+    const theUser = await require("./user")
+        .findById(this.id)
+        .populate("savedStories.story");
+    const savedStories = theUser.savedStories.map((obj) => {
+        return {
+            id: obj.story.id,
+            title: obj.story.title,
+            savedAt: moment(obj.savedAt, "YYYYMMDD").fromNow(),
+        };
+    });
+    return savedStories;
+};
+userSchema.methods.getFollowedAuthorsIds = function () {
+    return this.followedAuthors.map((obj) => obj.author);
+};
 const User = mongoose.model("User", userSchema);
 module.exports = User;
+
+// do not display flow or the user
+// <% if(currentUser.id !== user.id) {%>
+
+// <% } %>

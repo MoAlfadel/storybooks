@@ -7,6 +7,9 @@ const { isLogin } = require("../middleware/middleware");
 
 router.route("/dashboard").get(isLogin, users.dashboard);
 router.route("/:id").get(users.getProfile);
-router.route("/:id/follow").get(isLogin, users.followUser);
+router
+    .route("/:id/follow")
+    .post(isLogin, users.followUser)
+    .delete(users.unFollowUser);
 
 module.exports = router;

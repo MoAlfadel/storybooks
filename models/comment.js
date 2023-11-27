@@ -14,12 +14,12 @@ const commentSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now(),
+        required: true,
     },
     author: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        // required : true ,
+        required: true,
     },
 });
 

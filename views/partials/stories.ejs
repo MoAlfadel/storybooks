@@ -1,0 +1,33 @@
+<section class="home">
+    <div class="boxes grid-lay">
+        <% for (let i = 0 ; i < stories.length ; i++) {%>
+        <div class="box">
+            <div class="head">
+                <a href="/users/<%=stories[i].author.id %>">
+                    <img src="<%= stories[i].author.image %>" alt=""
+                /></a>
+                <div class="info">
+                    <span
+                        ><a href="users/<%=stories[i].author.id %>"
+                            ><%=stories[i].author.fullName %></a
+                        ></span
+                    >
+                    <span> <%= stories[i].createdDate%></span>
+                </div>
+            </div>
+            <div class="story">
+                <div class="story-title"><%= stories[i].title %></div>
+
+                <p id="body-<%= i %>"></p>
+                <a href="/stories/<%=stories[i].id %>" class="button"
+                    >view more
+                </a>
+                <script>
+                    var body = document.getElementById(`body-<%=i%>`);
+                    body.innerHTML = "<%-stories[i].storyPart %>";
+                </script>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</section>

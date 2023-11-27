@@ -11,6 +11,7 @@ module.exports.createComment = catchAsync(async (req, res) => {
     let comment = new Comment({
         ...req.body.comment,
         author: req.user._id,
+        createdAt: Date.now(),
     });
     story.comments.unshift(comment.id);
     await story.save();
@@ -37,8 +38,11 @@ module.exports.likeComment = catchAsync(async (req, res) => {
         req.flash("error", "can not find that comment");
         return res.redirect(`/stories/${id}`);
     }
-    // if you like it before  {problem }
-
+    // if he already like it before  [problem]
+    if (req.user.likedComments.contains(commentId)) {
+        req.flash("error", "You already like that Comment");
+        return res.redirect(`/stories/${id}`);
+    }
     comment.likes++;
     req.user.likedComments.unshift(commentId);
     await req.user.save();
@@ -53,8 +57,11 @@ module.exports.dislikeComment = catchAsync(async (req, res) => {
         req.flash("error", "not found comments");
         return res.redirect(`/stories/${id}`);
     }
-    // if you  don't like it {problem}
-
+    // if he does n't like it [problem]
+    if (!req.user.likedComments.contains(commentId)) {
+        req.flash("error", "You do not like that Comment");
+        return res.redirect(`/stories/${id}`);
+    }
     comment.likes--;
     const commentIndex = req.user.likedComments.indexOf(comment);
     req.user.likedComments.splice(commentIndex);
@@ -62,8 +69,3 @@ module.exports.dislikeComment = catchAsync(async (req, res) => {
     await comment.save();
     res.redirect(`/stories/${id}`);
 });
-
-// do not display flow
-// <% if(currentUser.id !== user.id) {%>
-
-// <% } %>

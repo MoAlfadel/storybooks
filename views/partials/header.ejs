@@ -9,61 +9,122 @@
             <ul class="links" id="links">
                 <div>
                     <li>
+                        <span class="icon-container search">
+                            <i class="fa fa-solid fa-search icon"></i>
+                        </span>
+                        <form action="" class="search">
+                            <input
+                                type="text"
+                                placeholder="Search for a story"
+                            />
+                        </form>
+                    </li>
+                    <li>
                         <a href="/">
-                            <i class="fa-solid icon fa-home"></i>
+                            <span class="icon-container">
+                                <i class="fa-solid icon fa-home"></i>
+                            </span>
                             home</a
                         >
                     </li>
-                    <li>
-                        <a href="/stories">
-                            <i class="fa fa-book-open icon"></i>
-                            stories</a
-                        >
+                    <li class="sub-menu">
+                        <div class="title" id="subBtn">
+                            <div>
+                                <span class="icon-container">
+                                    <i class="fa fa-book-reader icon"></i>
+                                </span>
+                                stories
+                            </div>
+                            <i
+                                class="down-icon fas fa-angle-down"
+                                id="downIcon"
+                            ></i>
+                        </div>
+                        <ul class="sub-links" id="subLinks">
+                            <li>
+                                <a href="/stories">
+                                    <span class="icon-container">
+                                        <i
+                                            class="info fa-solid fa-lock-open icon"
+                                        ></i>
+                                    </span>
+                                    public stories
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/stories/followedAuthors">
+                                    <span class="icon-container">
+                                        <i class="fa fa-user-group icon"></i>
+                                    </span>
+                                    followed authors st</a
+                                >
+                            </li>
+                            <li>
+                                <a href="/stories/saved">
+                                    <span class="icon-container">
+                                        <i class="fa fa-save icon"></i>
+                                    </span>
+                                    saved stories
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="/stories/new">
-                            <i
-                                class="fa fa-plus-square icon"
-                                aria-hidden="true"
-                            ></i>
+                            <span class="icon-container">
+                                <i
+                                    class="fa fa-plus-square icon"
+                                    aria-hidden="true"
+                                ></i>
+                            </span>
                             new story
                         </a>
                     </li>
                     <% if(currentUser) {%>
                     <li>
                         <a href="/users/<%= currentUser.id %>">
-                            <i class="fa fa-user icon"></i>
+                            <span class="icon-container">
+                                <i class="fa fa-circle-user icon"></i>
+                            </span>
                             profile
                         </a>
                     </li>
                     <li>
                         <a href="/users/dashboard">
-                            <i class="fa fa-dashboard icon"></i>
+                            <span class="icon-container">
+                                <i class="fa fa-dashboard icon"></i>
+                            </span>
                             dashboard</a
                         >
                     </li>
                     <% } %>
                 </div>
                 <div>
-                    <li>
-                        <a href="/auth/login">
-                            <i
-                                class="fa icon fa-sign-in"
-                                aria-hidden="true"
-                            ></i>
-                            sign in
-                        </a>
-                    </li>
+                    <% if(currentUser) {%>
                     <li>
                         <a href="/auth/logout">
-                            <i
-                                class="fa icon fa-sign-out"
-                                aria-hidden="true"
-                            ></i>
-
+                            <span class="icon-container">
+                                <i
+                                    class="fa icon fa-sign-out"
+                                    aria-hidden="true"
+                                ></i>
+                            </span>
                             logout
                         </a>
                     </li>
+                    <% } else{%>
+                    <li>
+                        <a href="/auth/login">
+                            <span class="icon-container">
+                                <i
+                                    class="fa icon fa-sign-in"
+                                    aria-hidden="true"
+                                ></i>
+                            </span>
+                            sign in
+                        </a>
+                    </li>
+                    <% } %>
                 </div>
             </ul>
         </div>

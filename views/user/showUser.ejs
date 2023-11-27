@@ -8,13 +8,16 @@
             </div>
             <div class="follow-box">
                 <% if(isFollowedResult) {%>
-                <a href="/users/<%= user.id %>/unflow" class="btn btn-states"
-                    >unFollow</a
+                <form
+                    action="/users/<%=user.id %>/follow?_method=delete"
+                    method="post"
                 >
+                    <button class="btn btn-states">UnFollow</button>
+                </form>
                 <% } else {%>
-                <a href="/users/<%=user.id %>/follow" class="btn btn-states"
-                    >follow</a
-                >
+                <form action="/users/<%=user.id %>/follow" method="post">
+                    <button class="btn btn-states">Follow</button>
+                </form>
                 <% } %>
             </div>
         </div>
@@ -41,10 +44,13 @@
             </div>
         </div>
     </div>
-    <div class="stories-container activeMainContainer">
+    <ul class="main-filter profile">
+        Stories
+    </ul>
+    <div class="stories-container main-container profile">
         <div class="box">
             <div class="box-title title">Story</div>
-            <div class="time title">Created</div>
+            <div class="title">Created</div>
         </div>
         <% for (let story of user.stories ) {%>
         <div class="box">
@@ -53,7 +59,14 @@
             </div>
             <div class="time"><%= story.createdDate %></div>
         </div>
-
         <% } %>
     </div>
+    <script>
+        let infoFields = document.querySelectorAll(".more-info > div");
+        infoFields.forEach((elt, number) => {
+            setTimeout(() => {
+                elt.classList.add("show");
+            }, number * 500);
+        });
+    </script>
 </section>

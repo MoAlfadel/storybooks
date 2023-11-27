@@ -32,18 +32,134 @@
     </section>
     <ul class="main-filter">
         <li data-set="storiesContainer" class="activeMainBtn">
-            <i class="fa fa-book-open icon"></i> Stories
+            <i class="fa fa-book-reader icon"></i> Stories
         </li>
         <li data-set="followContainer" class="">
-            <i class="fa fa-user icon"></i> Followers
+            <i class="fa fa-users icon"></i> Followers
         </li>
     </ul>
-    <!-- but stories container here  -->
+    <section
+        class="stories-container main-container activeMainContainer"
+        id="storiesContainer"
+    >
+        <ul class="filter box">
+            <li data-set="privateStories" class="activeBtn">
+                <i class="info fa-solid fa-lock"></i>
+                Private stories
+            </li>
+            <li data-set="yourStories" class="">
+                <i class="info fa-solid fa-lock-open"></i>
+                Public stories
+            </li>
+            <li data-set="savedStories">
+                <i class="fa fa-save icon"></i> saved Stories
+            </li>
+            <li data-set="likedStories">
+                <i class="fa fa-heart"></i>
+                Liked Stories
+            </li>
+        </ul>
+        <div class="stories-box activeBox" id="privateStories">
+            <div class="box">
+                <div class="box-title title">Story</div>
+                <div class="time title">Created</div>
+                <div class="control title">control</div>
+            </div>
+            <% for (let privateStory of userStories.privateStories) {%>
+            <div class="box">
+                <div class="box-title">
+                    <a href="/stories/<%=privateStory.id  %>">
+                        <%= privateStory.title %>
+                    </a>
+                </div>
+                <div class="time"><%= privateStory.createdDate %></div>
+                <div class="control">
+                    <a
+                        href="/stories/<%=privateStory.id %>/edit"
+                        title="Edit The Story"
+                        ><i class="fa fa-edit"></i
+                    ></a>
+                    <form
+                        action="/stories/<%= privateStory.id %>?_method=delete"
+                        method="post"
+                    >
+                        <button title="Delete The Story">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="stories-box" id="yourStories">
+            <div class="box">
+                <div class="box-title title">Story</div>
+                <div class="time title">Created</div>
+                <div class="control title">control</div>
+            </div>
+            <% for(let publicStory of userStories.publicStories){ %>
+            <div class="box">
+                <div class="box-title">
+                    <a href="/stories/<%=publicStory.id %>">
+                        <%= publicStory.title %></a
+                    >
+                </div>
+                <div class="time"><%=publicStory.createdDate %></div>
+                <div class="control">
+                    <a
+                        href="/stories/<%=publicStory.id %>/edit"
+                        title="Edit The Story"
+                        ><i class="fa fa-edit"></i
+                    ></a>
+                    <form
+                        action="/stories/<%= publicStory.id %>?_method=delete"
+                    >
+                        <button title="Delete The Story">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="stories-box" id="savedStories">
+            <div class="box">
+                <div class="box-title title">Story</div>
+                <div class="time title">saved</div>
+            </div>
+            <% for(let savedStory of userStories.savedStories){ %>
+            <div class="box">
+                <div class="box-title">
+                    <a href="/stories/<%=savedStory.id %>">
+                        <%=savedStory.title %>
+                    </a>
+                </div>
+                <div class="time"><%= savedStory.savedAt %></div>
+            </div>
+            <% } %>
+        </div>
+        <div class="stories-box" id="likedStories">
+            <div class="box">
+                <div class="box-title title">Story</div>
+                <div class="time title">Created</div>
+            </div>
+            <% for(let likedStory of userStories.likedStories){ %>
+            <div class="box">
+                <div class="box-title">
+                    <a href="/stories/<%=likedStory.id %>">
+                        <%= likedStory.title %>
+                    </a>
+                </div>
+                <div class="time"><%= likedStory.createdDate %></div>
+            </div>
+            <% } %>
+        </div>
+    </section>
     <section class="followers-container main-container" id="followContainer">
         <ul class="filter box">
             <li data-set="followers" class="activeBtn">
                 <span class="span">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-users"></i>
                     <i class="fa fa-sign-in" aria-hidden="true"></i>
                 </span>
                 followers
@@ -51,7 +167,7 @@
             <li data-set="followedAuthors" class="">
                 <div class="span">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-users fa-solid"></i>
                 </div>
                 Followed
             </li>
@@ -66,7 +182,7 @@
                 <div class="box-title">
                     <a href="/users/<%=author.id %>"><%= author.fullName %></a>
                 </div>
-                <div class="time"><%= author.flowedAt %></div>
+                <div class="time"><%= author.followedAt %></div>
             </div>
             <% } %>
         </div>
@@ -80,10 +196,18 @@
                 <div class="box-title">
                     <a href="<%= author.id %>"> <%= author.fullName %></a>
                 </div>
-                <div class="time"><%= author.flowedAt %></div>
+                <div class="time"><%= author.followedAt %></div>
             </div>
             <% } %>
         </div>
     </section>
     <script src="/js/dashborad.js"></script>
+    <script>
+        let infoFields = document.querySelectorAll(".more-info > div");
+        infoFields.forEach((elt, number) => {
+            setTimeout(() => {
+                elt.classList.add("show");
+            }, number * 500);
+        });
+    </script>
 </section>

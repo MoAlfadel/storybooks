@@ -1,0 +1,109 @@
+@use "../helpers/varibles" as *;
+main.home-page {
+    height: 100vh;
+    background-color: var(--secund-clr);
+
+    .content {
+        position: absolute;
+        padding: 10px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        .info {
+            text-align: center;
+            line-height: 1.6;
+            h1 {
+                margin: 0;
+                text-align: center;
+                color: var(--main-clr);
+                letter-spacing: 5px;
+            }
+            p {
+                max-width: 290px;
+                margin: 10px auto;
+                text-transform: uppercase;
+                font-weight: 200;
+                color: #595959;
+            }
+        }
+        form {
+            width: fit-content;
+            position: relative;
+            margin: 0 auto;
+            input {
+                padding: 7px 10px 7px 30px;
+                border: none;
+                display: block;
+                width: 280px;
+                margin: 30px auto;
+                border-radius: 20px;
+                border: 1.5px solid transparent;
+                &:focus {
+                    outline: none;
+                    border: 1.5px solid var(--main-clr);
+                }
+            }
+            .search-icon {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+        .button {
+            background-color: var(--main-clr);
+            color: var(--secund-clr);
+            padding: 8px 10px;
+            border-radius: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 280px;
+            text-align: center;
+            .icon {
+                margin-right: 10px;
+            }
+        }
+    }
+    .links {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        width: 280px;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        margin: 30px auto;
+        list-style: none;
+        span {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--main-clr);
+            color: var(--secund-clr);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.7rem;
+        }
+    }
+    footer.home {
+        margin: 0;
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        width: 100%;
+        background-color: transparent;
+        font-weight: 200;
+        height: fit-content;
+        b {
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+        p {
+            font-size: 1rem;
+            letter-spacing: 3px;
+        }
+    }
+}

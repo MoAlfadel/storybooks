@@ -1,28 +1,33 @@
+
+
+
 <%= layout("/layouts/boilerplate") %>
+
 <section class="new">
+    <h2 class="main-tiatle">Update your story</h2>
     <form action="/stories/<%= story.id %>?_method=put" method="post">
-        <div class="field">
-            <label for="">title</label>
-            <input
-                type="text"
-                name="story[title]"
-                id=""
-                value="<%= story.title%>"
-            />
-        </div>
-        <div class="field">
-            <label for="status">status</label>
+        <input
+            type="text"
+            placeholder="title"
+            name="story[title]"
+            value="<%= story.title%>"
+        />
+        <textarea name="story[body]" id="editor"><%= story.body %></textarea>
+        <label for="status">Status :</label>
+        <div class="select-container">
             <select name="story[status]" id="status">
-                <option value="public">public</option>
-                <option value="private">private</option>
+                <option value="public"  <%= story.status == "public" ? "selected":"" %>>Public</option>
+                <option value="private" <%= story.status == "private" ? "selected":"" %> >Private</option>
             </select>
+            <div class="icon-container">
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
         </div>
-        <div id="editor">
-            <label for="body">body</label>
-            <textarea name="story[body]" id="" cols="30" rows="10">
-<%= story.body %></textarea
-            >
-        </div>
-        <button>send</button>
+        <input type="submit" value="Add" />
     </form>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor");
+    </script>
 </section>

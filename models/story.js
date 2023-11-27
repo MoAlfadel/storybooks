@@ -24,8 +24,7 @@ const StroySchema = new Schema({
     },
     createdAt: {
         type: Date,
-        trim: true,
-        default: Date.now(),
+        required: true,
     },
     likes: {
         type: Number,
@@ -49,6 +48,7 @@ StroySchema.virtual("createdDate").get(function () {
 });
 StroySchema.virtual("storyPart").get(function () {
     if (this.body.length > 100) {
+        //[problem] remove html tags
         return this.body.substring(0, 90) + "...";
     } else {
         return this.body;
@@ -69,6 +69,6 @@ StroySchema.post("findOneAndDelete", async (story) => {
     }
 });
 
-const Story = mongoose.model("story", StroySchema);
+const Story = mongoose.model("Story", StroySchema);
 
 module.exports = Story;

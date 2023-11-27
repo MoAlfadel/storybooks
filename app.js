@@ -17,6 +17,7 @@ const storiesRouter = require("./routes/story");
 const commentRouter = require("./routes/comment");
 
 const connectDB = require("./db/connect");
+const Story = require("./models/story");
 const User = require("./models/user");
 const app = express();
 let dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/storyBooks";
@@ -78,6 +79,7 @@ passport.use(
                         lastName: profile.name.familyName,
                         email: profile.emails[0].value,
                         image: profile.photos[0].value,
+                        createdAt: Date.now(),
                     };
                     const user = new User({
                         google: { profileId: profile.id },

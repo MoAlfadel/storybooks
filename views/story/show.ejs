@@ -8,36 +8,56 @@
             >
         </h1>
     </section>
-    <div>
-        <h2>title</h2>
-        : <%= story.title %>
-    </div>
-    <div class>
-        <h2>body</h2>
-        <div id="body"></div>
-        <script>
-            let body = document.getElementById("body");
-            body.innerHTML = " <%-story.body %>";
-        </script>
-    </div>
-    <div>
-        <h2>createAt</h2>
-        : <%= story.createdDate %>
-    </div>
-    <div>
+    <section class="story-display">
+        <div>
+            <h2>title</h2>
+            : <%= story.title %>
+        </div>
+        <div>
+            <h2>body</h2>
+            <div id="body"></div>
+            <script>
+                let body = document.getElementById("body");
+                body.innerHTML = " <%-story.body %>";
+            </script>
+        </div>
+        <div>
+            <h2>createAt</h2>
+            : <%= story.createdDate %>
+        </div>
+    </section>
+    <section class="like">
         <h2>likes number</h2>
-        <a href="/stories/<%=story.id %>/like">
+        <form action="/stories/<%=story.id %>/like" method="post">
             <button>like</button>
-        </a>
-        <a href="/stories/<%=story.id %>/dislike">
+        </form>
+        <form
+            action="/stories/<%=story.id %>/like?_method=delete"
+            method="post"
+        >
             <button>dislike</button>
-        </a>
+        </form>
+
         : <%= story.likes %>
-    </div>
-    <a href="/stories/<%= story.id %>/edit">edit Story </a>
-    <form action="/stories/<%- story.id %>?_method=delete" method="post">
-        <button>delete the Story</button>
-    </form>
+    </section>
+    <section class="save">
+        <form action="/stories/<%=story.id %>/save" method="post">
+            <button class="btn">save</button>
+        </form>
+        <form
+            action="/stories/<%=story.id %>/save?_method=delete"
+            method="post"
+        >
+            <button class="btn">UnSave</button>
+        </form>
+    </section>
+
+    <a class="edit" href="/stories/<%= story.id %>/edit">edit Story </a>
+    <section class="delete">
+        <form action="/stories/<%- story.id %>?_method=delete" method="post">
+            <button>delete the Story</button>
+        </form>
+    </section>
     <hr />
     <section class="createComment">
         <form action="/stories/<%= story.id %>/comments" method="post">
@@ -45,6 +65,8 @@
             <button>comment</button>
         </form>
     </section>
+    <br />
+    <hr />
     <section class="displayComments">
         <% for (let comment of story.comments) {%>
         <div>
