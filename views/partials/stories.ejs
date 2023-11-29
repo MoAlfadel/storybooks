@@ -8,7 +8,7 @@
                 /></a>
                 <div class="info">
                     <span
-                        ><a href="users/<%=stories[i].author.id %>"
+                        ><a href="/users/<%=stories[i].author.id %>"
                             ><%=stories[i].author.fullName %></a
                         ></span
                     >
@@ -17,7 +17,6 @@
             </div>
             <div class="story">
                 <div class="story-title"><%= stories[i].title %></div>
-
                 <p id="body-<%= i %>"></p>
                 <a href="/stories/<%=stories[i].id %>" class="button"
                     >view more

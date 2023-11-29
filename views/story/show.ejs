@@ -71,14 +71,35 @@
         <% for (let comment of story.comments) {%>
         <div>
             <%= comment.body %>
-            <form
-                action="/stories/<%= story.id %>/comments/<%= comment.id %>?_method=delete"
-                method="post"
-            >
-                <button>delete comment</button>
-            </form>
+            <div>likes : <%= comment.likes %></div>
+            <section class="control-comment">
+                <% if (comment.author == currentUser.id) { %>
+                <form
+                    action="/stories/<%= story.id %>/comments/<%= comment.id %>?_method=delete"
+                    method="post"
+                >
+                    <button>delete comment</button>
+                </form>
+                <% } %>
+                <!-- like  -->
+                <% if(currentUser.likedComments.includes(comment.id)) {%>
+                <form
+                    action="/stories/<%= story.id%>/comments/<%= comment.id%>/like?_method=delete"
+                    method="post"
+                >
+                    <button>dislike comment</button>
+                </form>
+                <%} else { %>
+                <form
+                    action="/stories/<%= story.id%>/comments/<%= comment.id%>/like"
+                    method="post"
+                >
+                    <button>like comment</button>
+                </form>
+                <% } %>
+            </section>
         </div>
-
+        <hr />
         <% } %>
     </section>
 </section>

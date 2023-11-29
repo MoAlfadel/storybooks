@@ -1,0 +1,21 @@
+<%= layout("/layouts/boilerplate") %>
+<section class="search">
+    <form action="/stories/search" class="search">
+        <input
+            type="text"
+            placeholder="Search for a story "
+            name="q"
+            value="<%= q  %>"
+        />
+        <i class="fa fa-search search-icon"></i>
+    </form>
+</section>
+<section>
+    <% if(stories.length) { %> <%- include("../partials/stories.ejs") %> <% }
+    else {%>
+
+    <p class="stories-not-found" style="text-align: center">
+        No search result found <i class="fa fa-dfdkf"></i>
+    </p>
+    <% } %>
+</section>

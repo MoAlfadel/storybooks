@@ -16,6 +16,8 @@ router
 
 router.route("/new").get(isLogin, stories.renderNewStoryForm);
 
+router.route("/search").get(stories.searchStory);
+
 router
     .route("/followedAuthors")
     .get(isLogin, stories.getFollowedAuthorsStories);

@@ -1,7 +1,7 @@
+const Comment = require("../models/comment");
 const Story = require("../models/story");
 const catchAsync = require("../utils/CatchAsync");
 
-const Comment = require("../models/comment");
 module.exports.createComment = catchAsync(async (req, res) => {
     const { id } = req.params;
     const story = await Story.findById(id);
@@ -38,8 +38,7 @@ module.exports.likeComment = catchAsync(async (req, res) => {
         req.flash("error", "can not find that comment");
         return res.redirect(`/stories/${id}`);
     }
-    // if he already like it before  [problem]
-    if (req.user.likedComments.contains(commentId)) {
+    if (req.user.likedComments.includes(commentId)) {
         req.flash("error", "You already like that Comment");
         return res.redirect(`/stories/${id}`);
     }
@@ -57,8 +56,7 @@ module.exports.dislikeComment = catchAsync(async (req, res) => {
         req.flash("error", "not found comments");
         return res.redirect(`/stories/${id}`);
     }
-    // if he does n't like it [problem]
-    if (!req.user.likedComments.contains(commentId)) {
+    if (!req.user.likedComments.includes(commentId)) {
         req.flash("error", "You do not like that Comment");
         return res.redirect(`/stories/${id}`);
     }

@@ -138,14 +138,15 @@ userSchema.methods.getSavedStories = async function () {
     const theUser = await require("./user")
         .findById(this.id)
         .populate("savedStories.story");
-    const savedStories = theUser.savedStories.map((obj) => {
-        return {
-            id: obj.story.id,
-            title: obj.story.title,
-            savedAt: moment(obj.savedAt, "YYYYMMDD").fromNow(),
-        };
-    });
-    return savedStories;
+    if (theUser.savedStories.length)
+        return theUser.savedStories.map((obj) => {
+            return {
+                id: obj.story.id,
+                title: obj.story.title,
+                savedAt: moment(obj.savedAt, "YYYYMMDD").fromNow(),
+            };
+        });
+    return [];
 };
 userSchema.methods.getFollowedAuthorsIds = function () {
     return this.followedAuthors.map((obj) => obj.author);

@@ -66,6 +66,7 @@ StroySchema.post("findOneAndDelete", async (story) => {
             $pull: { likedComments: { $in: story.comments } },
         });
         // delete it from savedStories of users
+        await User.updateMany({ $pull: { savedStories: { story: story.id } } });
     }
 });
 

@@ -214,10 +214,10 @@ header nav .links-container .links {
 header nav .links-container .links.active {
   left: 0;
 }
-header nav .links-container .links form.search {
+header nav .links-container .links form.search-menu {
   display: inline;
 }
-header nav .links-container .links form.search input {
+header nav .links-container .links form.search-menu input {
   width: 175px;
   padding: 6px 10px;
   border: none;
@@ -225,7 +225,7 @@ header nav .links-container .links form.search input {
   background-color: var(--third-clr);
   font-size: 14px;
 }
-header nav .links-container .links form.search input:focus {
+header nav .links-container .links form.search-menu input:focus {
   outline: none;
 }
 header nav .links-container .links li {
@@ -391,6 +391,33 @@ footer span {
 }
 footer span .heart {
   animation: scale 0.4s linear infinite;
+}
+
+form.search {
+  width: -moz-fit-content;
+  width: fit-content;
+  position: relative;
+  margin: 0 auto;
+}
+form.search input {
+  padding: 7px 10px 7px 30px;
+  border: none;
+  display: block;
+  width: 280px;
+  margin: 30px auto;
+  border-radius: 20px;
+  border: 1.5px solid var(--secund-clr);
+}
+form.search input:focus {
+  outline: none;
+  border: 1.5px solid var(--main-clr);
+}
+form.search .search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #707070;
 }
 
 @keyframes scale {
@@ -991,31 +1018,6 @@ main.home-page .content .info p {
   text-transform: uppercase;
   font-weight: 200;
   color: #595959;
-}
-main.home-page .content form {
-  width: -moz-fit-content;
-  width: fit-content;
-  position: relative;
-  margin: 0 auto;
-}
-main.home-page .content form input {
-  padding: 7px 10px 7px 30px;
-  border: none;
-  display: block;
-  width: 280px;
-  margin: 30px auto;
-  border-radius: 20px;
-  border: 1.5px solid transparent;
-}
-main.home-page .content form input:focus {
-  outline: none;
-  border: 1.5px solid var(--main-clr);
-}
-main.home-page .content form .search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 main.home-page .content .button {
   background-color: var(--main-clr);

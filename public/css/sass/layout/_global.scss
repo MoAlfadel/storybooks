@@ -119,7 +119,7 @@ header {
                 &.active {
                     left: 0;
                 }
-                form.search {
+                form.search-menu {
                     display: inline;
                     input {
                         width: 175px;
@@ -308,6 +308,31 @@ footer {
     }
 }
 
+form.search {
+    width: fit-content;
+    position: relative;
+    margin: 0 auto;
+    input {
+        padding: 7px 10px 7px 30px;
+        border: none;
+        display: block;
+        width: 280px;
+        margin: 30px auto;
+        border-radius: 20px;
+        border: 1.5px solid var(--secund-clr);
+        &:focus {
+            outline: none;
+            border: 1.5px solid var(--main-clr);
+        }
+    }
+    .search-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #707070;
+    }
+}
 @keyframes scale {
     from {
         transform: scale(1);

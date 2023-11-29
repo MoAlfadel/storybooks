@@ -27,30 +27,6 @@ main.home-page {
                 color: #595959;
             }
         }
-        form {
-            width: fit-content;
-            position: relative;
-            margin: 0 auto;
-            input {
-                padding: 7px 10px 7px 30px;
-                border: none;
-                display: block;
-                width: 280px;
-                margin: 30px auto;
-                border-radius: 20px;
-                border: 1.5px solid transparent;
-                &:focus {
-                    outline: none;
-                    border: 1.5px solid var(--main-clr);
-                }
-            }
-            .search-icon {
-                position: absolute;
-                left: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
         .button {
             background-color: var(--main-clr);
             color: var(--secund-clr);

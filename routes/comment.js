@@ -15,8 +15,9 @@ router
     .route("/:commentId")
     .delete(isLogin, isCommentAuthor, comments.deleteComment);
 
-router.post("/:commentId/like", isLogin, comments.likeComment);
-
-router.delete("/:commentId/dislike", comments.dislikeComment);
+router
+    .route("/:commentId/like")
+    .post(isLogin, comments.likeComment)
+    .delete(comments.dislikeComment);
 
 module.exports = router;

@@ -172,3 +172,14 @@ module.exports.unSaveStory = catchAsync(async (req, res) => {
     req.flash("success", "successfully unsaved story ");
     res.redirect(`/stories/${id}`);
 });
+module.exports.searchStory = catchAsync(async (req, res) => {
+    const { q } = req.query;
+    let stories = [];
+
+    if (q)
+        stories = await Story.find({
+            status: "public",
+            title: RegExp(q),
+        }).populate("author");
+    res.render("story/search", { title: "Search", q, stories });
+});
