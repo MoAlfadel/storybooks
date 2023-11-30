@@ -2,9 +2,11 @@ const Story = require("../models/story");
 const catchAsync = require("../utils/CatchAsync");
 
 const isSaveTheStory = (user, story) => {
-    return user.savedStories.some((obj) => {
-        return obj.story == story.id;
-    });
+    if (user)
+        return user.savedStories.some((obj) => {
+            return obj.story == story.id;
+        });
+    else return false;
 };
 
 module.exports.renderNewStoryForm = (req, res) => {
@@ -47,13 +49,17 @@ module.exports.getSavedStories = catchAsync(async (req, res) => {
 module.exports.showStory = catchAsync(async (req, res) => {
     const { id } = req.params;
     const story = await Story.findById(id)
-        .populate("comments")
+        .populate({ path: "comments", populate: "author" })
         .populate("author");
     if (!story) {
         req.flash("error", "Can not find that story");
         return res.redirect("/stories");
     }
-    res.render("story/show", { story, title: "show Story " });
+    res.render("story/show", {
+        story,
+        title: "show Story ",
+        isSaved: isSaveTheStory,
+    });
 });
 
 module.exports.createStory = catchAsync(async (req, res) => {

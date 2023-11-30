@@ -61,6 +61,13 @@ main.home-page {
             justify-content: center;
             align-items: center;
             font-size: 1.7rem;
+            border: 2px solid var(--main-clr);
+            transition: 0.4s ease-in-out;
+            &:hover,
+            a:active {
+                background-color: var(--secund-clr);
+                color: var(--main-clr);
+            }
         }
     }
     footer.home {

@@ -114,7 +114,6 @@ header {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-
                 padding-bottom: 50px;
                 &.active {
                     left: 0;
@@ -153,6 +152,10 @@ header {
                         text-decoration: none;
                         color: inherit;
                         transition: opacity 0.4s linear;
+                        &.active,
+                        &:hover {
+                            opacity: 0.77;
+                        }
                     }
                     &.sub-menu {
                         .title {
@@ -237,6 +240,7 @@ header {
 .btn-states {
     transition: 0.4s ease-in-out;
     &:hover {
+        background-color: var(--secund-clr);
         box-shadow: 0 -1px 0 rgba(170, 168, 168, 0.04),
             0 2px 4px rgba(0, 0, 0, 0.25);
     }

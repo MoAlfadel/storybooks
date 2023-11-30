@@ -11,6 +11,7 @@ const commentSchema = new Schema({
     likes: {
         type: Number,
         default: 0,
+        min: 0,
     },
     createdAt: {
         type: Date,
@@ -22,7 +23,11 @@ const commentSchema = new Schema({
         required: true,
     },
 });
-
+commentSchema.virtual("createdDate").get(function () {
+    return moment(this.createdAt, "YYYYMMDD").fromNow();
+});
+// [problem] delete comment delete it form stories
+// delet it from user liked comment
 const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = Comment;

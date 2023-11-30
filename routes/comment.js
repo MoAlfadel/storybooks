@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const comments = require("../controllers/comment");
-
-// but this middleware
 const {
     validateComment,
     isLogin,
@@ -18,6 +16,6 @@ router
 router
     .route("/:commentId/like")
     .post(isLogin, comments.likeComment)
-    .delete(comments.dislikeComment);
+    .delete(isLogin, comments.dislikeComment);
 
 module.exports = router;

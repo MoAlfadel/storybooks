@@ -1,0 +1,105 @@
+<%= layout("./layouts/boilerplate") %>
+<section class="show">
+    <section class="authorInfo">
+        <h1>
+            author :
+            <a href="/users/<%=story.author.id %>">
+                <%= story.author.fullName %></a
+            >
+        </h1>
+    </section>
+    <section class="story-display">
+        <div>
+            <h2>title</h2>
+            : <%= story.title %>
+        </div>
+        <div>
+            <h2>body</h2>
+            <div id="body"></div>
+            <script>
+                let body = document.getElementById("body");
+                body.innerHTML = " <%-story.body %>";
+            </script>
+        </div>
+        <div>
+            <h2>createAt</h2>
+            : <%= story.createdDate %>
+        </div>
+    </section>
+    <section class="like">
+        <h2>likes number</h2>
+        <form action="/stories/<%=story.id %>/like" method="post">
+            <button>like</button>
+        </form>
+        <form
+            action="/stories/<%=story.id %>/like?_method=delete"
+            method="post"
+        >
+            <button>dislike</button>
+        </form>
+
+        : <%= story.likes %>
+    </section>
+    <section class="save">
+        <form action="/stories/<%=story.id %>/save" method="post">
+            <button class="btn">save</button>
+        </form>
+        <form
+            action="/stories/<%=story.id %>/save?_method=delete"
+            method="post"
+        >
+            <button class="btn">UnSave</button>
+        </form>
+    </section>
+
+    <a class="edit" href="/stories/<%= story.id %>/edit">edit Story </a>
+    <section class="delete">
+        <form action="/stories/<%- story.id %>?_method=delete" method="post">
+            <button>delete the Story</button>
+        </form>
+    </section>
+    <hr />
+    <section class="createComment">
+        <form action="/stories/<%= story.id %>/comments" method="post">
+            <input type="text" name="comment[body]" />
+            <button>comment</button>
+        </form>
+    </section>
+    <br />
+    <hr />
+    <section class="displayComments">
+        <% for (let comment of story.comments) {%>
+        <div>
+            <%= comment.body %>
+            <div>likes : <%= comment.likes %></div>
+            <section class="control-comment">
+                <% if (comment.author == currentUser.id) { %>
+                <form
+                    action="/stories/<%= story.id %>/comments/<%= comment.id %>?_method=delete"
+                    method="post"
+                >
+                    <button>delete comment</button>
+                </form>
+                <% } %>
+                <!-- like  -->
+                <% if(currentUser.likedComments.includes(comment.id)) {%>
+                <form
+                    action="/stories/<%= story.id%>/comments/<%= comment.id%>/like?_method=delete"
+                    method="post"
+                >
+                    <button>dislike comment</button>
+                </form>
+                <%} else { %>
+                <form
+                    action="/stories/<%= story.id%>/comments/<%= comment.id%>/like"
+                    method="post"
+                >
+                    <button>like comment</button>
+                </form>
+                <% } %>
+            </section>
+        </div>
+        <hr />
+        <% } %>
+    </section>
+</section>

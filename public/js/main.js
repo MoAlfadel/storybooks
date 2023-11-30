@@ -34,3 +34,9 @@ sumMenuBtn.addEventListener("click", () => {
     document.getElementById("subLinks").classList.toggle("active");
     document.getElementById("downIcon").classList.toggle("active");
 });
+
+const mainLinks = document.querySelectorAll(".links li a");
+
+mainLinks.forEach((a) => {
+    if (a.href === location.href) a.classList.add("active");
+});

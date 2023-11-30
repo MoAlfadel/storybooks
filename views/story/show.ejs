@@ -1,105 +1,166 @@
 <%= layout("./layouts/boilerplate") %>
-<section class="show">
-    <section class="authorInfo">
-        <h1>
-            author :
-            <a href="/users/<%=story.author.id %>">
-                <%= story.author.fullName %></a
+<section class="show-page-container">
+    <section class="box">
+        <div class="head">
+            <div class="show-image">
+                <a href="/users/<%=story.author.id %>"
+                    ><img src="<%=story.author.image %>" alt=""
+                /></a>
+            </div>
+            <div class="info">
+                <div class="wr-details">
+                    <span
+                        ><a href="/users/<%=story.author.id %>"
+                            ><%= story.author.firstName %></a
+                        ></span
+                    >
+                    <span class="date"><%= story.createdDate %></span>
+                </div>
+                <% if( currentUser&& story.author.id === currentUser.id ) { %>
+                <div class="buttons">
+                    <a href="/stories/<%=story.id %>/edit">
+                        <button class="edit btn-states" title="Edit the story">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </a>
+                    <form
+                        action="/stories/<%- story.id %>?_method=delete"
+                        method="post"
+                    >
+                        <button
+                            class="delete btn-states"
+                            title="Delete The story "
+                        >
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="story">
+            <div class="story-title"><%= story.title %></div>
+            <div class="sroty-body" id="body"></div>
+        </div>
+        <div class="likes">
+            <div class="likes-container">
+                <%= story.likes %> <% if(!currentUser ||
+                !currentUser.likedStories.includes(story.id)){%>
+                <form action="/stories/<%=story.id %>/like" method="post">
+                    <button><i class="fa fa-thumbs-up"></i></button>
+                </form>
+                <% } else {%>
+                <form
+                    action="/stories/<%=story.id %>/like?_method=delete"
+                    method="post"
+                >
+                    <button>
+                        <i class="fa fa-thumbs-down"></i>
+                    </button>
+                </form>
+                <% } %>
+            </div>
+            <% if(currentUser) {%> <% if(!isSaved(currentUser,story)) {%>
+            <form action="/stories/<%=story.id %>/save" method="post">
+                <button class="save btn-states">
+                    <i class="fa fa-save"></i> save
+                </button>
+            </form>
+            <% } else {%>
+            <form
+                action="/stories/<%=story.id %>/save?_method=delete"
+                method="post"
             >
-        </h1>
-    </section>
-    <section class="story-display">
-        <div>
-            <h2>title</h2>
-            : <%= story.title %>
-        </div>
-        <div>
-            <h2>body</h2>
-            <div id="body"></div>
-            <script>
-                let body = document.getElementById("body");
-                body.innerHTML = " <%-story.body %>";
-            </script>
-        </div>
-        <div>
-            <h2>createAt</h2>
-            : <%= story.createdDate %>
+                <button class="save btn-states">
+                    <i class="fa fa-save"></i> UnSave
+                </button>
+            </form>
+            <% } %> <% } %>
         </div>
     </section>
-    <section class="like">
-        <h2>likes number</h2>
-        <form action="/stories/<%=story.id %>/like" method="post">
-            <button>like</button>
-        </form>
-        <form
-            action="/stories/<%=story.id %>/like?_method=delete"
-            method="post"
-        >
-            <button>dislike</button>
-        </form>
-
-        : <%= story.likes %>
-    </section>
-    <section class="save">
-        <form action="/stories/<%=story.id %>/save" method="post">
-            <button class="btn">save</button>
-        </form>
-        <form
-            action="/stories/<%=story.id %>/save?_method=delete"
-            method="post"
-        >
-            <button class="btn">UnSave</button>
-        </form>
-    </section>
-
-    <a class="edit" href="/stories/<%= story.id %>/edit">edit Story </a>
-    <section class="delete">
-        <form action="/stories/<%- story.id %>?_method=delete" method="post">
-            <button>delete the Story</button>
-        </form>
-    </section>
-    <hr />
-    <section class="createComment">
-        <form action="/stories/<%= story.id %>/comments" method="post">
-            <input type="text" name="comment[body]" />
-            <button>comment</button>
-        </form>
-    </section>
-    <br />
-    <hr />
-    <section class="displayComments">
+    <section class="comment-section">
+        <h2 class="main-tiatle">Comments</h2>
         <% for (let comment of story.comments) {%>
-        <div>
-            <%= comment.body %>
-            <div>likes : <%= comment.likes %></div>
-            <section class="control-comment">
-                <% if (comment.author == currentUser.id) { %>
-                <form
-                    action="/stories/<%= story.id %>/comments/<%= comment.id %>?_method=delete"
-                    method="post"
-                >
-                    <button>delete comment</button>
-                </form>
+        <div class="post-comment">
+            <div class="comment-list">
+                <div class="flex">
+                    <div class="user">
+                        <a href="/users/<%= comment.author.id %>">
+                            <img src="<%= comment.author.image %>" alt=""
+                        /></a>
+                        <div class="user-info">
+                            <div class="name">
+                                <a href="/users/<%= comment.author.id %>"
+                                    ><%= comment.author.firstName%></a
+                                >
+                            </div>
+                            <div class="date"><%= comment.createdDate %></div>
+                        </div>
+                    </div>
+                    <div class="reply">
+                        <span> <%= comment.likes %> </span>
+                        <% if(currentUser &&
+                        currentUser.likedComments.includes(comment.id)) {%>
+                        <form
+                            class="lic-icon"
+                            action="/stories/<%= story.id%>/comments/<%= comment.id%>/like?_method=delete"
+                            method="post"
+                        >
+                            <button>
+                                <i class="fa fa-thumbs-down icon"></i>
+                            </button>
+                        </form>
+                        <%} else { %>
+                        <form
+                            class="lic-icon"
+                            action="/stories/<%= story.id%>/comments/<%= comment.id%>/like"
+                            method="post"
+                        >
+                            <button>
+                                <i class="fa fa-thumbs-up icon"></i>
+                            </button>
+                        </form>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="comment"><%= comment.body %></div>
+                <% if (currentUser && comment.author.id == currentUser.id) { %>
+                <div class="delete">
+                    <form action="">
+                        <button title="Delete comment">
+                            <i class="fa fa-trash icon"></i>
+                        </button>
+                    </form>
+                </div>
                 <% } %>
-                <!-- like  -->
-                <% if(currentUser.likedComments.includes(comment.id)) {%>
-                <form
-                    action="/stories/<%= story.id%>/comments/<%= comment.id%>/like?_method=delete"
-                    method="post"
-                >
-                    <button>dislike comment</button>
-                </form>
-                <%} else { %>
-                <form
-                    action="/stories/<%= story.id%>/comments/<%= comment.id%>/like"
-                    method="post"
-                >
-                    <button>like comment</button>
-                </form>
-                <% } %>
-            </section>
+            </div>
         </div>
-        <hr />
+        <% } if(currentUser) {%>
+        <form
+            action="/stories/<%= story.id %>/comments"
+            method="post"
+            class="comment-box"
+        >
+            <div class="user">
+                <div class="image">
+                    <a href="/users/<%=currentUser.id%>">
+                        <img src="<%=currentUser %>" alt=""
+                    /></a>
+                </div>
+                <div class="name">
+                    <a href="/users/<%=currentUser.id%>">
+                        <%= currentUser.firstName %></a
+                    >
+                </div>
+            </div>
+            <div class="comment-container">
+                <textarea name="comment[body]"></textarea>
+            </div>
+            <button class="comment-submit btn btn-states">comment</button>
+        </form>
         <% } %>
     </section>
+    <script>
+        document.getElementById("body").innerHTML = "<%-story.body %>";
+    </script>
 </section>
