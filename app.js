@@ -2,14 +2,18 @@ const express = require("express");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const passport = require("passport");
-
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const ExpressError = require("./utils/ExpressError");
 
 const flash = require("connect-flash");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const User = require("./models/user");
+
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
 
 const usersRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
@@ -17,8 +21,6 @@ const storiesRouter = require("./routes/story");
 const commentRouter = require("./routes/comment");
 
 const connectDB = require("./db/connect");
-const Story = require("./models/story");
-const User = require("./models/user");
 const app = express();
 let dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/storyBooks";
 if (process.env.NODE_ENV !== "production") {
@@ -38,10 +40,45 @@ const store = new MongoStore({
     touchAfter: 24 * 60 * 60,
 });
 
+//security config
+const scriptSrcUrls = [];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com",
+    "https://stackpath.bootstrapcdn.com",
+    "https://fonts.googleapis.com",
+    "https://use.fontawesome.com",
+];
+const connectSrcUrls = ["https://events.mapbox.com"];
+const fontSrcUrls = ["https://fonts.gstatic.com/"];
+app.use(mongoSanitize());
+app.use(helmet());
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            childSrc: ["blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/24px-Google_%22G%22_Logo.svg.png",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
+
 const sessionConfig = {
+    name: "nsi",
     store,
     secret: process.env.SESSION_SECRET,
     resave: false,
+    // secure : true ,
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
@@ -49,9 +86,11 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7,
     },
 };
+
 app.use(session(sessionConfig));
 app.use(flash());
 
+// passport config
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(
@@ -103,6 +142,7 @@ passport.deserializeUser(async function (id, done) {
         done(null, user);
     }
 });
+
 app.use((req, res, next) => {
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
@@ -121,9 +161,11 @@ app.use("/users", usersRouter);
 app.use("/stories", storiesRouter);
 app.use("/stories/:id/comments", commentRouter);
 
+// not found route
 app.use("*", (req, res, next) => {
     return next(new ExpressError("Page Not Found", 404));
 });
+
 app.use((err, req, res, next) => {
     const { status = 500 } = err;
     console.log(err);
