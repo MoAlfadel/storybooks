@@ -66,7 +66,7 @@ app.use(
                 "'self'",
                 "blob:",
                 "data:",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/24px-Google_%22G%22_Logo.svg.png",
+                "https://upload.wikimedia.org/wikipedia/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
@@ -168,7 +168,7 @@ app.use("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
     const { status = 500 } = err;
-    console.log(err);
+    // console.log(err);
     res.status(status).render("error", { error: err, title: "Error " });
 });
 
