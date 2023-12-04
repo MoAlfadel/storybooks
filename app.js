@@ -98,8 +98,8 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "/auth/google/redirect",
-            // callbackURL: "domainname/google/redirect",
+            callbackURL: "https://storybooks-upki.onrender.com/auth/google/redirect",
+            // callbackURL: "/google/redirect",
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
