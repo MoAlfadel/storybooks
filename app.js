@@ -150,7 +150,7 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
 });
-
+// kd
 // home page
 app.get("/", (req, res) => {
     return res.render("home", { title: "StoryBooks" });
