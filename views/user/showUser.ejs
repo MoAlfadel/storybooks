@@ -6,9 +6,10 @@
                 <img src="<%= user.image %>" alt="" class="user-image" />
                 <div class="name"><%= user.fullName %></div>
             </div>
-            <% if(currentUser&&currentUser.id !== user.id) {%>
+
             <div class="follow-box">
-                <% if(isFollowedResult) {%>
+                <% if(currentUser&&currentUser.id !== user.id) {%> <%
+                if(isFollowedResult) {%>
                 <form
                     action="/users/<%=user.id %>/follow?_method=delete"
                     method="post"
@@ -19,9 +20,8 @@
                 <form action="/users/<%=user.id %>/follow" method="post">
                     <button class="btn btn-states">Follow</button>
                 </form>
-                <% } %>
+                <% } %> <% } %>
             </div>
-            <% } %>
         </div>
         <div class="more-info">
             <div class="email">
