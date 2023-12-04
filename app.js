@@ -22,10 +22,10 @@ const commentRouter = require("./routes/comment");
 
 const connectDB = require("./db/connect");
 const app = express();
-let dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/storyBooks";
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
+let dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/storyBooks";
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
