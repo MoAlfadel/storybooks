@@ -25,7 +25,8 @@ const app = express();
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
-let dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/storyBooks";
+let dbUrl = process.env.DB_URL;
+// || "mongodb://127.0.0.1:27017/storyBooks";
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
