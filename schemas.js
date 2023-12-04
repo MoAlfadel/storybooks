@@ -26,7 +26,7 @@ const joi = BaseJoi.extend(extension);
 
 module.exports.storyValidationSchema = joi.object({
     title: joi.string().required().escapeHTML(),
-    body: joi.string().required().escapeHTML(),
+    body: joi.string().required(),
     status: joi.string().required().escapeHTML(),
 });
 
