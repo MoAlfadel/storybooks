@@ -41,37 +41,37 @@ const store = new MongoStore({
 });
 
 //security config
-const scriptSrcUrls = [];
-const styleSrcUrls = [
-    "https://kit-free.fontawesome.com",
-    "https://stackpath.bootstrapcdn.com",
-    "https://fonts.googleapis.com",
-    "https://use.fontawesome.com",
-];
-const connectSrcUrls = ["https://events.mapbox.com"];
-const fontSrcUrls = ["https://fonts.gstatic.com/"];
+// const scriptSrcUrls = [];
+// const styleSrcUrls = [
+//     "https://kit-free.fontawesome.com",
+//     "https://stackpath.bootstrapcdn.com",
+//     "https://fonts.googleapis.com",
+//     "https://use.fontawesome.com",
+// ];
+// const connectSrcUrls = ["https://events.mapbox.com"];
+// const fontSrcUrls = ["https://fonts.gstatic.com/"];
 app.use(mongoSanitize());
-app.use(helmet());
-app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: [],
-            connectSrc: ["'self'", ...connectSrcUrls],
-            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-            workerSrc: ["'self'", "blob:"],
-            childSrc: ["blob:"],
-            objectSrc: [],
-            imgSrc: [
-                "'self'",
-                "blob:",
-                "data:",
-                "https://upload.wikimedia.org/wikipedia/",
-            ],
-            fontSrc: ["'self'", ...fontSrcUrls],
-        },
-    })
-);
+app.use(helmet({ contentSecurityPolicy: false }));
+// app.use(
+//     helmet.contentSecurityPolicy({
+//         directives: {
+//             defaultSrc: [],
+//             connectSrc: ["'self'", ...connectSrcUrls],
+//             scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+//             styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+//             workerSrc: ["'self'", "blob:"],
+//             childSrc: ["blob:"],
+//             objectSrc: [],
+//             imgSrc: [
+//                 "'self'",
+//                 "blob:",
+//                 "data:",
+//                 "https://upload.wikimedia.org",
+//             ],
+//             fontSrc: ["'self'", ...fontSrcUrls],
+//         },
+//     })
+// );
 
 const sessionConfig = {
     name: "nsi",
@@ -98,8 +98,9 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "https://storybooks-upki.onrender.com/auth/google/redirect",
-            // callbackURL: "/google/redirect",
+            callbackURL:
+                "https://storybooks-upki.onrender.com/auth/google/redirect",
+            // callbackURL: "auth/google/redirect",
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
