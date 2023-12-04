@@ -79,8 +79,9 @@
         </div>
     </section>
     <section class="comment-section">
+        <% if ( story.comments.length) {%>
         <h2 class="main-tiatle">Comments</h2>
-        <% for (let comment of story.comments) {%>
+        <% }%> <% for (let comment of story.comments) {%>
         <div class="post-comment">
             <div class="comment-list">
                 <div class="flex">
@@ -144,7 +145,7 @@
             <div class="user">
                 <div class="image">
                     <a href="/users/<%=currentUser.id%>">
-                        <img src="<%=currentUser %>" alt=""
+                        <img src="<%=currentUser.image %>" alt=""
                     /></a>
                 </div>
                 <div class="name">

@@ -870,6 +870,9 @@ form.search .search-icon {
 }
 .show-page-container .box .head img {
   width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-block;
   margin-right: 10px;
 }
 .show-page-container .box .head .info {
@@ -956,6 +959,9 @@ form.search .search-icon {
 }
 .show-page-container .comment-section img {
   width: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: inline-block;
   margin-right: 10px;
 }
 .show-page-container .comment-section .flex {
@@ -1046,6 +1052,8 @@ form.search .search-icon {
 .show-page-container .comment-section .comment-box .user img {
   width: 24px;
   height: 24px;
+  border-radius: 50%;
+  display: inline-block;
   margin-right: 10px;
 }
 .show-page-container .comment-section .comment-box .comment-container {
