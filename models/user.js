@@ -29,7 +29,6 @@ const userInfo = {
         {
             type: Schema.Types.ObjectId,
             ref: "Story",
-            unique: true,
         },
     ],
     savedStories: [
