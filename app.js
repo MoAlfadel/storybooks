@@ -107,7 +107,7 @@ passport.use(
             try {
                 //find the user in our database
                 const foundUser = await User.findOne({
-                    "google.profileId ": profile.id,
+                    "google.profileId": profile.id,
                 });
                 if (foundUser) {
                     //If user present in our database.
