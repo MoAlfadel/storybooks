@@ -127,7 +127,10 @@
                 <div class="comment"><%= comment.body %></div>
                 <% if (currentUser && comment.author.id == currentUser.id) { %>
                 <div class="delete">
-                    <form action="">
+                    <form
+                        action="/stories/<%= story.id %>/comments/<%= comment.id %>?_method=delete"
+                        method="post"
+                    >
                         <button title="Delete comment">
                             <i class="fa fa-trash icon"></i>
                         </button>
