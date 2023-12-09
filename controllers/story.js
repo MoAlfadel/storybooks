@@ -185,7 +185,7 @@ module.exports.searchStory = catchAsync(async (req, res) => {
     if (q)
         stories = await Story.find({
             status: "public",
-            title: RegExp(q),
+            title: RegExp(q, "ig"),
         }).populate("author");
     res.render("story/search", { title: "Search", q, stories });
 });
