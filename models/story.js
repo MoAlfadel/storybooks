@@ -58,15 +58,21 @@ StroySchema.virtual("storyPart").get(function () {
 StroySchema.post("findOneAndDelete", async (story) => {
     if (story) {
         // delete its comments
-        await Comment.deleteMany({ id: { $in: story.comments } });
+        await Comment.deleteMany({}, { id: { $in: story.comments } });
         // delete it from likedStories of users
-        await User.updateMany({ $pull: { likedStories: story.id } });
+        await User.updateMany({}, { $pull: { likedStories: story.id } });
         // delete its comment from user likedComments of users
-        await User.updateMany({
-            $pull: { likedComments: { $in: story.comments } },
-        });
+        await User.updateMany(
+            {},
+            {
+                $pull: { likedComments: { $in: story.comments } },
+            }
+        );
         // delete it from savedStories of users
-        await User.updateMany({ $pull: { savedStories: { story: story.id } } });
+        await User.updateMany(
+            {},
+            { $pull: { savedStories: { story: story.id } } }
+        );
     }
 });
 
