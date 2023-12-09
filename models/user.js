@@ -56,7 +56,6 @@ const userInfo = {
                 type: Schema.Types.ObjectId,
                 ref: "User",
                 required: true,
-                unique: true,
             },
             followedAt: {
                 type: Date,
